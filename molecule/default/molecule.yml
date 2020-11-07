@@ -19,11 +19,10 @@ driver:
   name: docker
 platforms:
   - name: ansible-role-epics-ioc-instance
-    image: "${MOLECULE_DISTRO:-debian:stretch}"
-    command: ${MOLECULE_DOCKER_COMMAND:-'bash -c "while true; do sleep 10000; done"'}
+    image: "${MOLECULE_DISTRO:-geerlingguy/docker-debian9-ansible}"
+    command: ${MOLECULE_DOCKER_COMMAND:-'/lib/systemd/systemd'}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
-    pre_build_image: true
     groups:
       - default_group
