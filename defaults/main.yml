@@ -1,0 +1,49 @@
+---
+# Package versions for Debian. Leave empty for the latest
+epics_ioc_pkg_version_debian_git: ""
+epics_ioc_pkg_version_debian_make: ""
+
+# Package versions for RedHat. Leave empty for the latest
+epics_ioc_pkg_version_redhat_git: ""
+epics_ioc_pkg_version_redhat_make: ""
+
+# Select where EPICS base libraries are installed
+epics_ioc_epics_base_dir: /usr/lib/epics
+
+# Select which EPICS modules are goind to be templated in
+# RELEASE file.
+#
+# Example
+#
+# The "|" operator will leave the string as is, chomp the text back into
+# a single line, joining newlines with spaces, and keeping the last newline
+#
+#epics_ioc_epics_modules_cfg:
+#  - |
+#    ASYN=/usr/lib/epics
+#  - |
+#    STREAM=/usr/lib/epics
+#
+epics_ioc_epics_modules_cfg: []
+
+# Groups of repositories to clone and install.
+# This should be set when calling the role.
+#
+# Check the task/clone-install.yml
+# for all actions available.
+#
+# Example
+#
+#  - name: High-Level Applications
+#    org_url: https://github.com/lnls-sirius
+#    repo_name: hla
+#    repo_version: master
+#    clone_path: /tmp
+#    install_chdir: pyqt-apps
+#    install_via_makefile: true
+#    make_install_target: install-all
+#    make_install_opts:
+#      INSTALL_DESIGNER_DIR: "/usr/local/share/Qt/designer"
+#    force_version: true
+
+epics_ioc_repos: []

@@ -1,0 +1,4 @@
+---
+- scm: git
+  src: git+https://github.com/lerwys/ansible-role-epics
+  version: master
