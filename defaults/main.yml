@@ -18,7 +18,7 @@ epics_ioc_epics_base_dir: /usr/lib/epics
 # The "|" operator will leave the string as is, chomp the text back into
 # a single line, joining newlines with spaces, and keeping the last newline
 #
-#epics_ioc_epics_modules_cfg:
+# epics_ioc_epics_modules_cfg:
 #  - |
 #    ASYN=/usr/lib/epics
 #  - |
