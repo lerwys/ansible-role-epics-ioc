@@ -51,7 +51,7 @@ Tests are performed using Molecule. To run them with python virtualenv, issue:
         cd ../ && \
         virtualenv env --python python3 && \
         source env/bin/activate && \
-        cd ansible-role-epics && \
+        cd ansible-role-epics-ioc && \
         pip install ansible==2.9.* molecule==3.* \
             molecule-docker testinfra \
             yamllint ansible-lint flake8 \
