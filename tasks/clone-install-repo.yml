@@ -5,6 +5,7 @@
     state: directory
     recurse: true
     mode: 0755
+  become: true
   become_user: "{{ ansible_ssh_user | default(ansible_env.SUDO_USER, true) | default(ansible_env.USER, true) | default(ansible_user_id) }}"
   when: (item.install_via_makefile is defined and
         item.install_via_makefile | bool) or
@@ -23,6 +24,7 @@
     ssh_opts: "{{ item.git_ssh_opts | default(omit) }}"
     force: "{{ item.force_version | default(false) }}"
   register: git_result
+  become: true
   become_user: "{{ ansible_ssh_user | default(ansible_env.SUDO_USER, true) | default(ansible_env.USER, true) | default(ansible_user_id) }}"
   when: (item.install_via_makefile is defined and
         item.install_via_makefile | bool) or
