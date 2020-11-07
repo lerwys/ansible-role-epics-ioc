@@ -1,6 +1,11 @@
 Ansible Role EPICS IOC
 =========================
 
+[![Build Status](https://travis-ci.org/lerwys/ansible-role-epics-ioc.svg)](https://travis-ci.org/lerwys/ansible-role-epics-ioc)
+![Latest tag](https://img.shields.io/github/tag/lerwys/ansible-role-epics-ioc.svg?style=flat)
+[![Latest release](https://img.shields.io/github/release/lerwys/ansible-role-epics-ioc.svg?style=flat)](https://github.com/lerwys/ansible-role-epics-ioc/releases)
+[![BSD License](https://img.shields.io/github/license/lerwys/ansible-role-epics-ioc.svg?style=flat)](LICENSE)
+
 This Ansible role clone and install EPICS IOCs.
 
 ## Requirements
