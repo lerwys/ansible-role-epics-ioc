@@ -20,7 +20,7 @@ driver:
 platforms:
   - name: ansible-role-epics-ioc-instance
     image: "${MOLECULE_DISTRO:-geerlingguy/docker-debian9-ansible}"
-    command: ${MOLECULE_DOCKER_COMMAND:-'/lib/systemd/systemd'}
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
