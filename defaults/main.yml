@@ -15,14 +15,9 @@ epics_ioc_epics_base_dir: /usr/lib/epics
 #
 # Example
 #
-# The "|" operator will leave the string as is, chomp the text back into
-# a single line, joining newlines with spaces, and keeping the last newline
-#
 # epics_ioc_epics_modules_cfg:
-#  - |
-#    ASYN=/usr/lib/epics
-#  - |
-#    STREAM=/usr/lib/epics
+#  - ASYN=/usr/lib/epics
+#  - STREAM=/usr/lib/epics
 #
 epics_ioc_epics_modules_cfg: []
 
@@ -34,18 +29,15 @@ epics_ioc_epics_modules_cfg: []
 #
 # Example
 #
-#  - name: High-Level Applications
-#    org_url: https://github.com/lnls-sirius
-#    repo_name: hla
+#  - name: tekScope EPICS IOC
+#    org_url: https://github.com/brunoseivam
+#    repo_name: tekScope
 #    repo_version: master
 #    clone_path: /tmp
-#    install_chdir: pyqt-apps
 #    install_via_makefile: true
 #    make_install_targets:
-#      - clean
-#      - install
-#    make_install_opts:
-#      INSTALL_DESIGNER_DIR: "/usr/local/share/Qt/designer"
+#      - distclean
+#      - all
 #    force_version: true
 
 epics_ioc_repos: []

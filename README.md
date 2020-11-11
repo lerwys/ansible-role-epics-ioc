@@ -16,12 +16,55 @@ This Ansible role clone and install EPICS IOCs.
 ## Role Variables
 
 ```yaml
----
+epics_ioc_epics_base_dir: /usr/lib/epics
 
 ```
 
-## Example Playbook
+Select where EPICS base libraries are installed
 
+
+```yaml
+epics_ioc_epics_modules_cfg: []
+```
+
+Select which EPICS modules are goind to be templated in RELEASE file.
+
+Example:
+
+```yaml
+epics_ioc_epics_modules_cfg:
+ - ASYN=/usr/lib/epics
+ - CALC=/usr/lib/epics
+ - STREAM=/usr/lib/epics
+```
+
+
+```yaml
+epics_ioc_repos: []
+```
+
+Groups of repositories to clone and install. This should be set when calling the role.
+
+Check the task/clone-install.yml for all actions available.
+
+Example:
+
+```yaml
+- name: tekScope EPICS IOC
+  org_url: https://github.com/brunoseivam
+  repo_name: tekScope
+  repo_version: master
+  clone_path: /tmp
+  install_via_makefile: true
+  make_install_targets:
+    - distclean
+    - all
+  force_version: true
+```
+
+## Example Playbooks
+
+`playbook.yml:`
 ```yaml
 ---
 - hosts: all
@@ -30,6 +73,7 @@ This Ansible role clone and install EPICS IOCs.
       name: "{{ playbook_dir }}"
 ```
 
+`playbook-complete.yml:`
 ```yaml
 ---
 - hosts: all
