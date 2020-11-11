@@ -1,4 +1,13 @@
 ---
+- name: Check if IOC directory already exists
+  stat:
+    path: "{{ item.clone_path }}"
+  register: clone_path_stat
+  when: (item.install_via_makefile is defined and
+        item.install_via_makefile | bool) or
+        (item.clone_only is defined and
+         item.clone_only | bool)
+
 - name: Ensure IOC directory exists
   file:
     path: "{{ item.clone_path }}"
@@ -7,10 +16,11 @@
     mode: 0755
   become: true
   become_user: "{{ ansible_ssh_user | default(ansible_env.SUDO_USER, true) | default(ansible_env.USER, true) | default(ansible_user_id) }}"
-  when: (item.install_via_makefile is defined and
+  when: not clone_path_stat.stat.exists and
+        ((item.install_via_makefile is defined and
         item.install_via_makefile | bool) or
         (item.clone_only is defined and
-         item.clone_only | bool)
+         item.clone_only | bool))
 
 # Ansible user variable, ansible_user, ansible_ssh_user, etc is a mess.
 # Going to use th approach in https://github.com/geerlingguy/drupal-vm/issues/1302
