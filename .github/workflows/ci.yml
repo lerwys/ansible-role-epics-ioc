@@ -10,7 +10,6 @@ on:
 env:
   DNS_SERVER1: 1.1.1.1
   DNS_SERVER2: 8.8.8.8
-  MOLECULE_LOG_VERBOSE: true
 
 jobs:
 
