@@ -4,12 +4,9 @@
 
   vars:
     epics_ioc_epics_modules_cfg:
-      - |
-        ASYN=/usr/lib/epics
-      - |
-        STREAM=/usr/lib/epics
-      - |
-        CALC=/usr/lib/epics
+      - ASYN=/usr/lib/epics
+      - STREAM=/usr/lib/epics
+      - CALC=/usr/lib/epics
 
     epics_ioc_repos:
       - name: tekScope EPICS IOC
