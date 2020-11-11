@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: epics_ioc
   author: Lucas Russo
   description: Ansible role to clone and install EPICS IOCs
   company: Lucas Russo
