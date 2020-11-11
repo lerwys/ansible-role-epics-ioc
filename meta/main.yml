@@ -26,4 +26,4 @@ galaxy_info:
         - bionic
 
 dependencies:
-  - lerwys.ansible_role_epics
+  - lerwys.epics
