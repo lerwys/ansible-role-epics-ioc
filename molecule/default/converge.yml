@@ -18,7 +18,9 @@
         repo_version: master
         clone_path: /tmp
         install_via_makefile: true
-        make_install_target: distclean all
+        make_install_targets:
+          - distclean
+          - all
         force_version: true
 
   roles:
