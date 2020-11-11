@@ -30,6 +30,37 @@ This Ansible role clone and install EPICS IOCs.
       name: "{{ playbook_dir }}"
 ```
 
+```yaml
+---
+- hosts: all
+
+  vars:
+    epics_packages_extra:
+      - epics-asyn-dev
+      - epics-stream-dev
+      - epics-calc-dev
+
+    epics_ioc_epics_modules_cfg:
+      - ASYN=/usr/lib/epics
+      - STREAM=/usr/lib/epics
+      - CALC=/usr/lib/epics
+
+    epics_ioc_repos:
+      - name: tekScope EPICS IOC
+        org_url: https://github.com/brunoseivam
+        repo_name: tekScope
+        repo_version: master
+        clone_path: /tmp
+        install_via_makefile: true
+        make_install_targets:
+          - distclean
+          - all
+        force_version: true
+
+  roles:
+    - role: lerwys.ansible_role_epics_ioc
+```
+
 ## Install Prerequisites
 
 ```
