@@ -102,7 +102,7 @@ Example:
         force_version: true
 
   roles:
-    - role: lerwys.ansible_role_epics_ioc
+    - role: lerwys.epics_ioc
 ```
 
 ## Install Prerequisites
