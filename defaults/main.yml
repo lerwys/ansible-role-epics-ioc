@@ -41,7 +41,9 @@ epics_ioc_epics_modules_cfg: []
 #    clone_path: /tmp
 #    install_chdir: pyqt-apps
 #    install_via_makefile: true
-#    make_install_target: install-all
+#    make_install_targets:
+#      - clean
+#      - install
 #    make_install_opts:
 #      INSTALL_DESIGNER_DIR: "/usr/local/share/Qt/designer"
 #    force_version: true
