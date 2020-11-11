@@ -3,6 +3,11 @@
   hosts: all
 
   vars:
+    epics_packages_extra:
+      - epics-asyn-dev
+      - epics-stream-dev
+      - epics-calc-dev
+
     epics_ioc_epics_modules_cfg:
       - ASYN=/usr/lib/epics
       - STREAM=/usr/lib/epics
