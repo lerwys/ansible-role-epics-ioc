@@ -20,14 +20,17 @@ epics_ioc_epics_base_dir: /usr/lib/epics
 
 ```
 
-Select where EPICS base libraries are installed
+Select where EPICS base libraries are installed. Used as the default
+if not defined at the epics_ioc_repos list items.
 
 
 ```yaml
 epics_ioc_epics_modules_cfg: []
 ```
 
-Select which EPICS modules are goind to be templated in RELEASE file.
+Select which EPICS modules are going to be templated in
+RELEASE file. Used as a default if not defined at the
+epics_ios_repos list items.
 
 Example:
 
@@ -56,6 +59,11 @@ Example:
   repo_version: master
   clone_path: /tmp
   install_via_makefile: true
+  epics_modules_cfg:
+    - ASYN=/usr/lib/epics
+    - CALC=/usr/lib/epics
+    - STREAM=/usr/lib/epics
+  epics_base_dir: /usr/lib/epics
   make_install_targets:
     - distclean
     - all

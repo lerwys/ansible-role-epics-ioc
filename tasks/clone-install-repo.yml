@@ -53,6 +53,9 @@
     group: "{{ item.make_install_as_user | default(ansible_env.USER, true) | default(ansible_user_id) }}"
     force: true
     mode: 0644
+  vars:
+    __item_epics_modules_cfg: "{{ item.epics_modules_cfg | default(epics_ioc_epics_modules_cfg) }}"
+    __item_epics_base_dir: "{{ item.epics_base_dir | default(epics_ioc_epics_base_dir) }}"
   become: true
   when: item.install_via_makefile is defined and
         (item.install_via_makefile | bool) and

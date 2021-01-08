@@ -7,11 +7,13 @@ epics_ioc_pkg_version_debian_make: ""
 epics_ioc_pkg_version_redhat_git: ""
 epics_ioc_pkg_version_redhat_make: ""
 
-# Select where EPICS base libraries are installed
+# Select where EPICS base libraries are installed. Used as the default
+# if not defined at the epics_ioc_repos list items.
 epics_ioc_epics_base_dir: /usr/lib/epics
 
 # Select which EPICS modules are goind to be templated in
-# RELEASE file.
+# RELEASE file. Used as a default if not defined at the
+# epics_ios_repos list items.
 #
 # Example
 #
@@ -35,6 +37,8 @@ epics_ioc_epics_modules_cfg: []
 #    repo_version: master
 #    clone_path: /tmp
 #    install_via_makefile: true
+#    epics_modules_cfg: []
+#    epics_base_dir: /usr/lib/epics
 #    make_install_targets:
 #      - distclean
 #      - all
