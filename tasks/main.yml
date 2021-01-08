@@ -16,6 +16,10 @@
   when: epics_ioc_packages is not defined
 
 # Include Tasks
+
+- name: Setup common environment
+  include_tasks: setup-common.yml
+
 - name: Setup RedHat environment
   include_tasks: setup-RedHat.yml
   when: ansible_os_family == 'RedHat'

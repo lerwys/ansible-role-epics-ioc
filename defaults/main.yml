@@ -7,6 +7,12 @@ epics_ioc_pkg_version_debian_make: ""
 epics_ioc_pkg_version_redhat_git: ""
 epics_ioc_pkg_version_redhat_make: ""
 
+# Specify EPICS IOC group name
+epics_ioc_group_name: softioc
+
+# Specify EPICS IOC GID. Leave empty for automatic assignment
+epics_ioc_gid:
+
 # Select where EPICS base libraries are installed. Used as the default
 # if not defined at the epics_ioc_repos list items.
 epics_ioc_epics_base_dir: /usr/lib/epics
