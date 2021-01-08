@@ -16,6 +16,21 @@ This Ansible role clone and install EPICS IOCs.
 ## Role Variables
 
 ```yaml
+epics_ioc_pkg_version_debian_git: ""
+epics_ioc_pkg_version_debian_make: ""
+```
+
+Package versions for Debian. Leave empty for the latest
+
+
+```yaml
+epics_ioc_pkg_version_redhat_git: ""
+epics_ioc_pkg_version_redhat_make: ""
+```
+
+Package versions for RedHat. Leave empty for the latest
+
+```yaml
 epics_ioc_epics_base_dir: /usr/lib/epics
 
 ```
