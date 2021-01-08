@@ -5,7 +5,7 @@ galaxy_info:
   description: Ansible role to clone and install EPICS IOCs
   company: Lucas Russo
   license: BSD
-  min_ansible_version: 2.9
+  min_ansible_version: 2.10
 
   platforms:
     - name: EL
@@ -27,5 +27,8 @@ galaxy_info:
         - xenial
         - bionic
 
+# Dependencies listed here will be run before the current role. For
+# other dependencies to be installed but not automatically executed
+# see meta/requirements.yml
 dependencies:
   - lerwys.epics
