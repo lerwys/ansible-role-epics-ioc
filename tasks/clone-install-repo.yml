@@ -48,7 +48,8 @@
 - name: "Replace RELEASE file with a custom one for {{ item.repo_name }}"
   template:
     src: "RELEASE.j2"
-    dest: "{{ item.clone_path }}/{{ item.repo_name }}/{{ repo_install_chdir }}/configure/RELEASE"
+    dest: "{{ item.clone_path }}/{{ item.repo_name }}/{{ repo_install_chdir }}/configure/{{ item.epics_release_filename |
+           default(epics_ioc_release_filename) }}"
     owner: "{{ item.make_install_as_user | default(ansible_env.USER, true) | default(ansible_user_id) }}"
     group: "{{ item.make_install_as_user | default(ansible_env.USER, true) | default(ansible_user_id) }}"
     force: true
@@ -59,7 +60,10 @@
   become: true
   when: item.install_via_makefile is defined and
         (item.install_via_makefile | bool) and
-        git_result.changed
+        git_result.changed and
+        (item.epics_overwrite_release_file |
+            default(epics_ioc_overwrite_release_file) |
+            bool)
 
 - name: "Install {{ item.repo_name }} via Makefile"
   make:

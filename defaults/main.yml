@@ -11,6 +11,14 @@ epics_ioc_pkg_version_redhat_make: ""
 # if not defined at the epics_ioc_repos list items.
 epics_ioc_epics_base_dir: /usr/lib/epics
 
+# Select if we want to overwrite the RELEASE file or not. Used as the
+# default if not defined at the epics_ioc_repos list items.
+epics_ioc_overwrite_release_file: true
+
+# Select default name of the destination RELEASE file, if not
+# defined at the epics_ioc_repos list items.
+epics_ioc_release_filename: RELEASE
+
 # Select which EPICS modules are goind to be templated in
 # RELEASE file. Used as a default if not defined at the
 # epics_ios_repos list items.
@@ -38,6 +46,8 @@ epics_ioc_epics_modules_cfg: []
 #    clone_path: /tmp
 #    install_via_makefile: true
 #    epics_modules_cfg: []
+#    epics_overwrite_release_file: true
+#    epics_release_filename: RELEASE
 #    epics_base_dir: /usr/lib/epics
 #    make_install_targets:
 #      - distclean

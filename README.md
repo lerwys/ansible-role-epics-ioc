@@ -23,6 +23,21 @@ epics_ioc_epics_base_dir: /usr/lib/epics
 Select where EPICS base libraries are installed. Used as the default
 if not defined at the epics_ioc_repos list items.
 
+```yaml
+epics_ioc_overwrite_release_file: true
+```
+
+Select if we want to overwrite the RELEASE file or not. Used as
+as default if not defined at the epics_ioc_repos list items.
+
+
+```yaml
+epics_ioc_release_filename: RELEASE
+```
+
+Select default name of the destination RELEASE file, if not
+defined at the epics_ioc_repos list items.
+
 
 ```yaml
 epics_ioc_epics_modules_cfg: []
@@ -63,6 +78,8 @@ Example:
     - ASYN=/usr/lib/epics
     - CALC=/usr/lib/epics
     - STREAM=/usr/lib/epics
+  epics_overwrite_release_file: true
+  epics_release_filename: RELEASE
   epics_base_dir: /usr/lib/epics
   make_install_targets:
     - distclean
