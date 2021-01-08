@@ -34,3 +34,6 @@
     - "{{ epics_ioc_repos }}"
   when:
     - epics_ioc_repos is defined
+
+- name: Setup caRepeater service
+  include: setup-caRepeater.yml
