@@ -59,6 +59,20 @@ Specify caRepeater systemd service enabled
 
 
 ```yaml
+epics_ioc_group_name: softioc
+```
+
+Specify EPICS IOC group name
+
+
+```yaml
+epics_ioc_gid:
+```
+
+Specify EPICS IOC GID. Leave empty for automatic assignment
+
+
+```yaml
 epics_ioc_epics_base_dir: /usr/lib/epics
 
 ```
