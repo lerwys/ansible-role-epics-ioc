@@ -1,7 +1,7 @@
 ---
 - name: Ensure EPICS IOC group exists
   group:
-    name: "{{ epics_ioc_group_name}}"
+    name: "{{ epics_ioc_group_name }}"
     state: present
     gid: "{{ (epics_ioc_gid is defined) and
             (epics_ioc_gid) |
