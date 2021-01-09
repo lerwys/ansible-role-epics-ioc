@@ -1,4 +1,7 @@
 ---
+- name: Set caRepeater service name
+  set_fact:
+    __carepeater_systemd_service_name: "caRepeater"
 # Copied from https://github.com/epicsdeb/epics-base/blob/upstream/3.15.6/src/ca/client/caRepeater.service@
 #
 # [Unit]
@@ -19,7 +22,7 @@
     name: 0x0i.systemd
   vars:
     unit_config:
-      - name: caRepeater
+      - name: "{{ __carepeater_systemd_service_name }}"
         path: "{{ epics_ioc_carepeater_systemd_path }}"
         enabled: "{{ epics_ioc_carepeater_systemd_enabled | bool }}"
         state: "{{ epics_ioc_carepeater_systemd_state }}"
