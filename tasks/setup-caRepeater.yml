@@ -20,6 +20,8 @@
   vars:
     unit_config:
       - name: caRepeater
+        enabled: true
+        state: started
         Unit:
           Description: EPICS CA Repeater
           Requires: network.target
