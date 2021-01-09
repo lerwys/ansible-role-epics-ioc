@@ -30,6 +30,34 @@ epics_ioc_pkg_version_redhat_make: ""
 
 Package versions for RedHat. Leave empty for the latest
 
+
+```yaml
+epics_ioc_carepeater_systemd_executable: "/usr/bin/caRepeater"
+```
+
+Specify caRepeater absolute path executable
+
+
+```yaml
+epics_ioc_carepeater_systemd_path: "/etc/systemd/system"
+```
+
+Specify caRepeater systemd service path
+
+
+```yaml
+epics_ioc_carepeater_systemd_state: started
+```
+
+Specify caRepeater systemd service state
+
+```yaml
+epics_ioc_carepeater_systemd_enabled: true
+```
+
+Specify caRepeater systemd service enabled
+
+
 ```yaml
 epics_ioc_epics_base_dir: /usr/lib/epics
 

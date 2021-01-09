@@ -7,6 +7,18 @@ epics_ioc_pkg_version_debian_make: ""
 epics_ioc_pkg_version_redhat_git: ""
 epics_ioc_pkg_version_redhat_make: ""
 
+# Specify caRepeater absolute path executable
+epics_ioc_carepeater_systemd_executable: "/usr/bin/caRepeater"
+
+# Specify caRepeater systemd service path
+epics_ioc_carepeater_systemd_path: "/etc/systemd/system"
+
+# Specify caRepeater systemd service state
+epics_ioc_carepeater_systemd_state: started
+
+# Specify caRepeater systemd service enabled
+epics_ioc_carepeater_systemd_enabled: true
+
 # Specify EPICS IOC group name
 epics_ioc_group_name: softioc
 

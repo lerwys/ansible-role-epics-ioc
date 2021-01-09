@@ -20,14 +20,15 @@
   vars:
     unit_config:
       - name: caRepeater
-        enabled: true
-        state: started
+        path: "{{ epics_ioc_carepeater_systemd_path }}"
+        enabled: "{{ epics_ioc_carepeater_systemd_enabled | bool }}"
+        state: "{{ epics_ioc_carepeater_systemd_state }}"
         Unit:
           Description: EPICS CA Repeater
           Requires: network.target
           After: network.target
         Service:
-          ExecStart: /usr/bin/caRepeater
+          ExecStart: "{{ epics_ioc_carepeater_systemd_executable }}"
           Restart: always
           User: daemon
         Install:
