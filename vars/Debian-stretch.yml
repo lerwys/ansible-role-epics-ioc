@@ -3,3 +3,4 @@ __epics_ioc_packages:
   - "git{{ (epics_ioc_pkg_version_debian_git | length > 0) | ternary('=' + epics_ioc_pkg_version_debian_git, '') }}"
   - "make{{ (epics_ioc_pkg_version_debian_make | length > 0) | ternary('=' + epics_ioc_pkg_version_debian_make, '') }}"
   - "procserv{{ (epics_ioc_pkg_version_debian_procserv | length > 0) | ternary('=' + epics_ioc_pkg_version_debian_procserv, '') }}"
+  - "telnet{{ (epics_ioc_pkg_version_debian_telnet | length > 0) | ternary('=' + epics_ioc_pkg_version_debian_telnet, '') }}"

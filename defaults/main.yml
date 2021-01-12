@@ -3,11 +3,13 @@
 epics_ioc_pkg_version_debian_git: ""
 epics_ioc_pkg_version_debian_make: ""
 epics_ioc_pkg_version_debian_procserv: ""
+epics_ioc_pkg_version_debian_telnet: ""
 
 # Package versions for RedHat. Leave empty for the latest
 epics_ioc_pkg_version_redhat_git: ""
 epics_ioc_pkg_version_redhat_make: ""
 epics_ioc_pkg_version_redhat_procserv: ""
+epics_ioc_pkg_version_redhat_telnet: ""
 
 # Specify caRepeater absolute path executable
 epics_ioc_carepeater_systemd_executable: "/usr/bin/caRepeater"

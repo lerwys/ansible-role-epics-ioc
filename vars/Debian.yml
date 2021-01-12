@@ -3,3 +3,4 @@ __epics_ioc_packages:
   - git
   - make
   - procserv
+  - telnet
