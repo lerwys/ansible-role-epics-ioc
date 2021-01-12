@@ -36,3 +36,18 @@
           User: daemon
         Install:
           WantedBy: multi-user.target
+
+- name: Setup caRepeater drop-in configuration file
+  include_role:
+    name: lerwys.systemd
+  vars:
+    unit_config:
+      - name: 10-params
+        type: conf
+        path: "{{ epics_ioc_carepeater_systemd_path }}/{{ __carepeater_systemd_service_name }}.service.d"
+        Service:
+          ExecStart:
+            type: override
+            value: "{{ epics_ioc_carepeater_systemd_executable }}"
+          Environment: "EPICS_CA_REPEATER_PORT={{ epics_ioc_carepeater_systemd_port }}"
+          User: "{{ epics_ioc_carepeater_systemd_user }}"

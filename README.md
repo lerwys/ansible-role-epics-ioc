@@ -57,6 +57,19 @@ epics_ioc_carepeater_systemd_enabled: true
 
 Specify caRepeater systemd service enabled
 
+```yaml
+epics_ioc_carepeater_systemd_port: 5065
+```
+
+Specify caRepeater port to be run
+
+
+```yaml
+epics_ioc_carepeater_systemd_user: nobody
+```
+
+Specify caRepeater user to be run
+
 
 ```yaml
 epics_ioc_group_name: softioc
