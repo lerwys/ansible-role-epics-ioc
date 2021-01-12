@@ -2,6 +2,7 @@
 # Package versions for Debian. Leave empty for the latest
 epics_ioc_pkg_version_debian_git: ""
 epics_ioc_pkg_version_debian_make: ""
+epics_ioc_pkg_version_debian_procserv: ""
 
 # Package versions for RedHat. Leave empty for the latest
 epics_ioc_pkg_version_redhat_git: ""
