@@ -19,7 +19,7 @@
 #
 - name: Setup caRepeater service file
   include_role:
-    name: 0x0i.systemd
+    name: lerwys.systemd
   vars:
     unit_config:
       - name: "{{ __carepeater_systemd_service_name }}"
