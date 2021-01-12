@@ -4,3 +4,4 @@ __epics_ioc_packages:
   - "make{{ (epics_ioc_pkg_version_debian_make | length > 0) | ternary('=' + epics_ioc_pkg_version_debian_make, '') }}"
   - "procserv{{ (epics_ioc_pkg_version_debian_procserv | length > 0) | ternary('=' + epics_ioc_pkg_version_debian_procserv, '') }}"
   - "telnet{{ (epics_ioc_pkg_version_debian_telnet | length > 0) | ternary('=' + epics_ioc_pkg_version_debian_telnet, '') }}"
+  - "netcat-openbsd{{ (epics_ioc_pkg_version_debian_netcat_openbsd | length > 0) | ternary('=' + epics_ioc_pkg_version_debian_netcat_openbsd, '') }}"

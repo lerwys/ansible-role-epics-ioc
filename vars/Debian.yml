@@ -4,3 +4,4 @@ __epics_ioc_packages:
   - make
   - procserv
   - telnet
+  - netcat-openbsd
