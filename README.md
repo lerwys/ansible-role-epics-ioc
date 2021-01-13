@@ -148,6 +148,7 @@ Example:
   org_url: https://github.com/brunoseivam
   repo_name: tekScope
   repo_version: master
+  repo_stash: true
   clone_path: /tmp
   install_via_makefile: true
   epics_modules_cfg:
