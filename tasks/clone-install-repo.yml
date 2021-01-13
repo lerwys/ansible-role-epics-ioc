@@ -22,6 +22,18 @@
         (item.clone_only is defined and
          item.clone_only | bool))
 
+# Try to preserve local modifications with git stash. This is mostly
+# so we can modify configuration files and make the git task idempotent
+- name: Try to save local modifications if requested
+  command: git stash
+  args:
+    chdir: "{{ item.clone_path }}/{{ item.repo_name }}"
+  changed_when: false
+  failed_when: false
+  when: item.repo_stash is defined and
+        item.repo_stash | bool
+  register: repo_stash
+
 # Ansible user variable, ansible_user, ansible_ssh_user, etc is a mess.
 # Going to use th approach in https://github.com/geerlingguy/drupal-vm/issues/1302
 # to fix that.
@@ -40,6 +52,17 @@
         item.install_via_makefile | bool) or
         (item.clone_only is defined and
          item.clone_only | bool)
+
+# Try to apply local modifications with git stash. This is mostly
+# so we can modify configuration files and make the git task idempotent
+- name: Try to apply local modifications if requested
+  command: git stash pop
+  args:
+    chdir: "{{ item.clone_path }}/{{ item.repo_name }}"
+  changed_when: false
+  failed_when: false
+  when: item.repo_stash is defined and
+        item.repo_stash | bool
 
 - name: "Define {{ item.repo_name }} chdir variable"
   set_fact:
