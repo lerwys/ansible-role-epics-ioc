@@ -186,18 +186,20 @@ Example:
       - epics-stream-dev
       - epics-calc-dev
 
-    epics_ioc_epics_modules_cfg:
-      - ASYN=/usr/lib/epics
-      - STREAM=/usr/lib/epics
-      - CALC=/usr/lib/epics
-
     epics_ioc_repos:
       - name: tekScope EPICS IOC
         org_url: https://github.com/brunoseivam
         repo_name: tekScope
         repo_version: master
+        repo_stash: true
         clone_path: /tmp
         install_via_makefile: true
+        epics_modules_cfg:
+          - ASYN=/usr/lib/epics
+          - STREAM=/usr/lib/epics
+          - CALC=/usr/lib/epics
+        epics_overwrite_release_file: true
+        epics_release_filename: RELEASE
         make_install_targets:
           - distclean
           - all
