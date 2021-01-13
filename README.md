@@ -10,7 +10,7 @@ This Ansible role clone and install EPICS IOCs.
 
 ## Requirements
 
-- ansible >= 2.9
+- ansible >= 2.10
 - molecule >= 3.0
 
 ## Role Variables
