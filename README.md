@@ -18,6 +18,9 @@ This Ansible role clone and install EPICS IOCs.
 ```yaml
 epics_ioc_pkg_version_debian_git: ""
 epics_ioc_pkg_version_debian_make: ""
+epics_ioc_pkg_version_debian_procserv: ""
+epics_ioc_pkg_version_debian_telnet: ""
+epics_ioc_pkg_version_debian_netcat_openbsd: ""
 ```
 
 Package versions for Debian. Leave empty for the latest
@@ -26,6 +29,9 @@ Package versions for Debian. Leave empty for the latest
 ```yaml
 epics_ioc_pkg_version_redhat_git: ""
 epics_ioc_pkg_version_redhat_make: ""
+epics_ioc_pkg_version_redhat_procserv: ""
+epics_ioc_pkg_version_redhat_telnet: ""
+epics_ioc_pkg_version_redhat_netcat_openbsd: ""
 ```
 
 Package versions for RedHat. Leave empty for the latest
