@@ -45,10 +45,10 @@ jobs:
       fail-fast: false
       matrix:
         distro:
-          - debian:buster
-          - debian:stretch
-          - centos:7
-          - centos:8
+          - geerlingguy/docker-debian9-ansible
+          - geerlingguy/docker-debian10-ansible
+          - geerlingguy/docker-centos7-ansible
+          - geerlingguy/docker-centos8-ansible
 
     steps:
       - name: Check out the codebase
