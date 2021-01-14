@@ -3,7 +3,6 @@
   group:
     name: "{{ epics_ioc_group_name }}"
     state: present
-    gid: "{{ (epics_ioc_gid is defined) and
-            (epics_ioc_gid) |
-                ternary(epics_ioc_gid, omit) }}"
+    gid: "{{ ((epics_ioc_gid is defined) and
+            (epics_ioc_gid)) | ternary(epics_ioc_gid, omit) }}"
   become: true
