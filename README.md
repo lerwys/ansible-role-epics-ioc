@@ -85,6 +85,14 @@ Specify EPICS IOC group name
 
 
 ```yaml
+epics_ioc_user_name: softioc
+```
+
+Specify EPICS IOC user name. Used as the default if not
+defined at the epics_ioc_repos list items
+
+
+```yaml
 epics_ioc_gid:
 ```
 
@@ -158,6 +166,10 @@ Example:
   epics_overwrite_release_file: true
   epics_release_filename: RELEASE
   epics_base_dir: /usr/lib/epics
+  epics_manage_user: true
+  epics_user: ioc
+  # Leave empty or omit for automatic assignment
+  epics_uid:
   make_install_targets:
     - distclean
     - all
