@@ -34,6 +34,10 @@ epics_ioc_carepeater_systemd_user: nobody
 # Specify EPICS IOC group name
 epics_ioc_group_name: softioc
 
+# Specify EPICS IOC user name. Used as the default if not
+# defined at the epics_ioc_repos list items
+epics_ioc_user_name: softioc
+
 # Specify EPICS IOC GID. Leave empty for automatic assignment
 epics_ioc_gid:
 
@@ -80,6 +84,10 @@ epics_ioc_epics_modules_cfg: []
 #    epics_overwrite_release_file: true
 #    epics_release_filename: RELEASE
 #    epics_base_dir: /usr/lib/epics
+#    epics_manage_user: true
+#    epics_user: ioc
+#    # Leave empty or omit for automatic assignment
+#    epics_uid:
 #    make_install_targets:
 #      - distclean
 #      - all

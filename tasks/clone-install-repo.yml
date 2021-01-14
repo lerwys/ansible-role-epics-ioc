@@ -101,3 +101,14 @@
   when: item.install_via_makefile is defined and
         (item.install_via_makefile | bool) and
         git_result.changed
+
+- name: "Manage user for {{ item.repo_name }}"
+  user:
+    name: "{{ item.epics_user | default(epics_ioc_user_name) }}"
+    home: "/epics/ioc/{{ item.repo_name }}"
+    comment: "{{ item.repo_name }} IOC"
+    uid: "{{ ((item.epics_uid is defined) and
+            (item.epics_uid)) | ternary(item.epics_uid, omit) }}"
+    group: "{{ epics_ioc_group_name }}"
+  become: true
+  when: item.epics_manage_user | default(true) | bool
