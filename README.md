@@ -136,6 +136,22 @@ epics_ioc_release_filename: RELEASE
 Select default name of the destination RELEASE file, if not
 defined at the epics_ioc_repos list items.
 
+```yaml
+epics_ioc_clone_path: "/usr/local/lib/iocapps"
+```
+
+Select epics IOC clone path (as well as install). Used if not
+defined at the epics_ioc_repos list items.
+
+```yaml
+epics_ioc_boot_dir: "iocBoot/ioc{{ epics_host_arch }}"
+```
+
+Select epics IOC boot directory. Used if not
+defined at the epics_ioc_repos list items.
+epics_host_arch will, in most cases, be defined
+at "epics" role
+
 
 ```yaml
 epics_ioc_epics_modules_cfg: []
