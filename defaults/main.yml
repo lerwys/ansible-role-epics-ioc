@@ -13,6 +13,12 @@ epics_ioc_pkg_version_redhat_procserv: ""
 epics_ioc_pkg_version_redhat_telnet: ""
 epics_ioc_pkg_version_redhat_netcat_openbsd: ""
 
+# Default git username. Used if not set
+epics_ioc_git_username: "user"
+
+# Default git useremail. Used if not set
+epics_ioc_git_useremail: "user@ansible_default.com"
+
 # Specify caRepeater absolute path executable
 epics_ioc_carepeater_systemd_executable: "/usr/bin/caRepeater"
 
