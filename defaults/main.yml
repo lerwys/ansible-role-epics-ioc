@@ -75,11 +75,11 @@ epics_ioc_boot_dir: "iocBoot/ioc{{ epics_host_arch }}"
 #
 # Example
 #
-# epics_ioc_epics_modules_cfg:
+# epics_ioc_epics_ioc_modules:
 #  - ASYN=/usr/lib/epics
 #  - STREAM=/usr/lib/epics
 #
-epics_ioc_epics_modules_cfg: []
+epics_ioc_epics_ioc_modules: []
 
 # Groups of repositories to clone and install.
 # This should be set when calling the role.
@@ -96,15 +96,15 @@ epics_ioc_epics_modules_cfg: []
 #    repo_stash: true
 #    clone_path: /tmp
 #    install_via_makefile: true
-#    epics_modules_cfg: []
-#    epics_overwrite_release_file: true
-#    epics_release_filename: RELEASE
+#    epics_ioc_modules: []
+#    epics_ioc_overwrite_release_file: true
+#    epics_ioc_release_filename: RELEASE
 #    epics_base_dir: /usr/lib/epics
 #    epics_ioc_boot_dir: iocBoot/ioclinux-x86_64
 #    epics_manage_user: true
-#    epics_user: ioc
+#    epics_ioc_user: ioc
 #    # Leave empty or omit for automatic assignment
-#    epics_uid:
+#    epics_ioc_uid:
 #    make_install_targets:
 #      - distclean
 #      - all

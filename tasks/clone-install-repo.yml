@@ -79,20 +79,20 @@
 - name: "Replace RELEASE file with a custom one for {{ item.repo_name }}"
   template:
     src: "RELEASE.j2"
-    dest: "{{ repo_clone_path }}/{{ item.repo_name }}/{{ repo_install_chdir }}/configure/{{ item.epics_release_filename |
+    dest: "{{ repo_clone_path }}/{{ item.repo_name }}/{{ repo_install_chdir }}/configure/{{ item.epics_ioc_release_filename |
            default(epics_ioc_release_filename) }}"
     owner: "{{ item.make_install_as_user | default(ansible_env.USER, true) | default(ansible_user_id) }}"
     group: "{{ item.make_install_as_user | default(ansible_env.USER, true) | default(ansible_user_id) }}"
     force: true
     mode: 0644
   vars:
-    __item_epics_modules_cfg: "{{ item.epics_modules_cfg | default(epics_ioc_epics_modules_cfg) }}"
+    __item_epics_ioc_modules: "{{ item.epics_ioc_modules | default(epics_ioc_epics_ioc_modules) }}"
     __item_epics_base_dir: "{{ item.epics_base_dir | default(epics_ioc_epics_base_dir) }}"
   become: true
   when: item.install_via_makefile is defined and
         (item.install_via_makefile | bool) and
         git_result.changed and
-        (item.epics_overwrite_release_file |
+        (item.epics_ioc_overwrite_release_file |
             default(epics_ioc_overwrite_release_file) |
             bool)
 
@@ -112,11 +112,11 @@
 
 - name: "Manage user for {{ item.repo_name }}"
   user:
-    name: "{{ item.epics_user | default(epics_ioc_user_name) }}"
+    name: "{{ item.epics_ioc_user | default(epics_ioc_user_name) }}"
     home: "/epics/ioc/{{ item.repo_name }}"
     comment: "{{ item.repo_name }} IOC"
-    uid: "{{ ((item.epics_uid is defined) and
-            (item.epics_uid)) | ternary(item.epics_uid, omit) }}"
+    uid: "{{ ((item.epics_ioc_uid is defined) and
+            (item.epics_ioc_uid)) | ternary(item.epics_ioc_uid, omit) }}"
     group: "{{ epics_ioc_group_name }}"
   become: true
   when: item.epics_manage_user | default(true) | bool

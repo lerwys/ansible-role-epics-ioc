@@ -154,7 +154,7 @@ at "epics" role
 
 
 ```yaml
-epics_ioc_epics_modules_cfg: []
+epics_ioc_epics_ioc_modules: []
 ```
 
 Select which EPICS modules are going to be templated in
@@ -164,7 +164,7 @@ epics_ios_repos list items.
 Example:
 
 ```yaml
-epics_ioc_epics_modules_cfg:
+epics_ioc_epics_ioc_modules:
  - ASYN=/usr/lib/epics
  - CALC=/usr/lib/epics
  - STREAM=/usr/lib/epics
@@ -189,17 +189,17 @@ Example:
   repo_stash: true
   clone_path: /tmp
   install_via_makefile: true
-  epics_modules_cfg:
+  epics_ioc_modules:
     - ASYN=/usr/lib/epics
     - CALC=/usr/lib/epics
     - STREAM=/usr/lib/epics
-  epics_overwrite_release_file: true
-  epics_release_filename: RELEASE
+  epics_ioc_overwrite_release_file: true
+  epics_ioc_release_filename: RELEASE
   epics_base_dir: /usr/lib/epics
   epics_manage_user: true
-  epics_user: ioc
+  epics_ioc_user: ioc
   # Leave empty or omit for automatic assignment
-  epics_uid:
+  epics_ioc_uid:
   make_install_targets:
     - distclean
     - all
@@ -236,12 +236,12 @@ Example:
         repo_stash: true
         clone_path: /tmp
         install_via_makefile: true
-        epics_modules_cfg:
+        epics_ioc_modules:
           - ASYN=/usr/lib/epics
           - STREAM=/usr/lib/epics
           - CALC=/usr/lib/epics
-        epics_overwrite_release_file: true
-        epics_release_filename: RELEASE
+        epics_ioc_overwrite_release_file: true
+        epics_ioc_release_filename: RELEASE
         make_install_targets:
           - distclean
           - all

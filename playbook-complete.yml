@@ -15,12 +15,12 @@
         repo_stash: true
         clone_path: /tmp
         install_via_makefile: true
-        epics_modules_cfg:
+        epics_ioc_modules:
           - ASYN=/usr/lib/epics
           - STREAM=/usr/lib/epics
           - CALC=/usr/lib/epics
-        epics_overwrite_release_file: true
-        epics_release_filename: RELEASE
+        epics_ioc_overwrite_release_file: true
+        epics_ioc_release_filename: RELEASE
         make_install_targets:
           - distclean
           - all

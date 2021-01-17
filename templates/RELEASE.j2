@@ -25,7 +25,7 @@ TEMPLATE_TOP=${EPICS_BASE}/templates/makeBaseApp/top
 
 EPICS_BASE={{ __item_epics_base_dir }}
 
-{% for epics_modules in __item_epics_modules_cfg %}
+{% for epics_modules in __item_epics_ioc_modules %}
 {{ epics_modules }}
 {% endfor %}
 
