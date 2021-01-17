@@ -83,6 +83,13 @@ epics_ioc_carepeater_systemd_port: 5065
 
 Specify caRepeater port to be run
 
+```yaml
+epics_ioc_env_epics_ioc_log_port: 7004
+```
+
+Specify IOC log port.
+Used if not defined at the epics_ioc_repos list items.
+
 
 ```yaml
 epics_ioc_carepeater_systemd_user: nobody
@@ -151,6 +158,13 @@ Select epics IOC boot directory. Used if not
 defined at the epics_ioc_repos list items.
 epics_host_arch will, in most cases, be defined
 at "epics" role
+
+```yaml
+epics_ioc_autosave_dir: "/var/lib"
+```
+
+Select epics IOC autosave directory. Used if not
+defined at the epics_ios_repos list items.
 
 
 ```yaml
@@ -242,6 +256,28 @@ Example:
           - CALC=/usr/lib/epics
         epics_ioc_overwrite_release_file: true
         epics_ioc_release_filename: RELEASE
+        epics_base_dir: /usr/lib/epics
+        epics_ioc_boot_dir: iocBoot/ioclinux-x86_64
+        epics_manage_user: true
+        epics_manage_autosave_dir: true
+        epics_ioc_user: ioc
+        # Leave empty or omit for automatic assignment
+        epics_ioc_uid:
+        # Environment variables shall be passed in a dictionary, if
+        # not list below
+        epics_ioc_env: {}
+        # Leave empty or omit to make variable undefined
+        epics_ioc_env_epics_ca_addr_list: "127.0.0.1"
+        # Leave empty or omit to make variable undefined
+        epics_ioc_env_epics_ca_auto_addr_list: true
+        # Leave empty or omit to make variable undefined
+        epics_ioc_env_epics_ca_max_array_bytes: 10000000
+        # Leave empty or omit to make variable assume default value
+        epics_ioc_env_epics_ioc_log_port: 7004
+        # Leave empty or omit for undefined variable
+        epics_ioc_env_epics_ca_sec_file: ""
+        # Leave empty or omit for undefined variable
+        epics_ioc_env_epics_ioc_log_inet: ""
         make_install_targets:
           - distclean
           - all
