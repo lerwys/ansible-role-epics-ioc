@@ -27,9 +27,11 @@
   set_fact:
     repo_ioc_env_vars: "{{ repo_ioc_env_vars |
         combine({
-            'EPICS_CA_ADDR_LIST': item.epics_ioc_env_epics_ca_addr_list | default(omit)
+            'EPICS_CA_ADDR_LIST': item.epics_ioc_env_epics_ca_addr_list
         })
     }}"
+  when: item.epics_ioc_env_epics_ca_addr_list is defined and
+        (item.epics_ioc_env_epics_ca_addr_list)
 
 - name: Set IOC EPICS_CA_AUTO_ADDR_LIST if requested
   set_fact:
@@ -45,9 +47,11 @@
   set_fact:
     repo_ioc_env_vars: "{{ repo_ioc_env_vars |
         combine({
-            'EPICS_CA_MAX_ARRAY_BYTES': item.epics_ioc_env_epics_ca_max_array_bytes | default(omit)
+            'EPICS_CA_MAX_ARRAY_BYTES': item.epics_ioc_env_epics_ca_max_array_bytes
         })
     }}"
+  when: item.epics_ioc_env_epics_ca_max_array_bytes is defined and
+        (item.epics_ioc_env_epics_ca_max_array_bytes)
 
 - name: Set IOC EPICS_IOC_LOG_PORT
   set_fact:
@@ -61,17 +65,21 @@
   set_fact:
     repo_ioc_env_vars: "{{ repo_ioc_env_vars |
         combine({
-            'EPICS_IOC_LOG_INET': item.epics_ioc_env_epics_ioc_log_inet | default(omit)
+            'EPICS_IOC_LOG_INET': item.epics_ioc_env_epics_ioc_log_inet
         })
     }}"
+  when: item.epics_ioc_env_epics_ioc_log_inet is defined and
+        (item.epics_ioc_env_epics_ioc_log_inet)
 
 - name: Set IOC EPICS_CA_SEC_FILE if requested
   set_fact:
     repo_ioc_env_vars: "{{ repo_ioc_env_vars |
         combine({
-            'EPICS_CA_SEC_FILE': item.epics_ioc_env_epics_ca_sec_file | default(omit)
+            'EPICS_CA_SEC_FILE': item.epics_ioc_env_epics_ca_sec_file
         })
     }}"
+  when: item.epics_ioc_env_epics_ca_sec_file is defined and
+        (item.epics_ioc_env_epics_ca_sec_file)
 
 - name: Set IOC AUTOSAVE_DIR if requested
   set_fact:
@@ -80,8 +88,7 @@
             'AUTOSAVE_DIR': repo_ioc_autosave_dir
         })
     }}"
-  when: item.epics_ioc_env_epics_ca_auto_addr_list is defined and
-        (item.epics_ioc_env_epics_ca_auto_addr_list)
+  when: item.epics_manage_autosave_dir | default(false) | bool
 
 - name: Show IOC environment variables
   debug:
