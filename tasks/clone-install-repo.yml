@@ -1,4 +1,8 @@
 ---
+- name: Set IOC username
+  set_fact:
+    repo_epics_ioc_user: "{{ item.epics_ioc_user | default(epics_ioc_user_name) }}"
+
 - name: Set IOC directory name
   set_fact:
     repo_clone_path: "{{ item.clone_path | default(epics_ioc_clone_path) }}"
@@ -199,7 +203,7 @@
 
 - name: "Manage user for {{ item.repo_name }}"
   user:
-    name: "{{ item.epics_ioc_user | default(epics_ioc_user_name) }}"
+    name: "{{ repo_epics_ioc_user }}"
     home: "/epics/ioc/{{ item.repo_name }}"
     comment: "{{ item.repo_name }} IOC"
     uid: "{{ ((item.epics_ioc_uid is defined) and
@@ -207,3 +211,15 @@
     group: "{{ epics_ioc_group_name }}"
   become: true
   when: item.epics_manage_user | default(true) | bool
+
+- name: Ensure IOC autosave directory exists if requested
+  file:
+    path: "{{ repo_clone_path }}"
+    state: directory
+    recurse: true
+    owner: "{{ repo_epics_ioc_user }}"
+    group: "{{ epics_ioc_group_name }}"
+    mode: 0755
+  become: true
+  become_user: "{{ ansible_ssh_user | default(ansible_env.SUDO_USER, true) | default(ansible_env.USER, true) | default(ansible_user_id) }}"
+  when: item.epics_manage_autosave_dir | default(false) | bool
