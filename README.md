@@ -38,6 +38,20 @@ Package versions for RedHat. Leave empty for the latest
 
 
 ```yaml
+epics_ioc_git_username: "user"
+```
+
+Default git username. Used if not set
+
+
+```yaml
+epics_ioc_git_useremail: "user@ansible_default.com"
+```
+
+Default git useremail. Used if not set
+
+
+```yaml
 epics_ioc_carepeater_systemd_executable: "/usr/bin/caRepeater"
 ```
 
