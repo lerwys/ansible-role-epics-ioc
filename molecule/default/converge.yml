@@ -15,13 +15,35 @@
         repo_version: master
         repo_stash: true
         clone_path: /tmp
+        install_via_makefile: true
         epics_ioc_modules:
           - ASYN=/usr/lib/epics
           - STREAM=/usr/lib/epics
           - CALC=/usr/lib/epics
         epics_ioc_overwrite_release_file: true
         epics_ioc_release_filename: RELEASE
-        install_via_makefile: true
+        epics_base_dir: /usr/lib/epics
+        epics_ioc_boot_dir: iocBoot/ioclinux-x86_64
+        epics_manage_user: true
+        epics_manage_autosave_dir: true
+        epics_ioc_user: ioc
+        # Leave empty or omit for automatic assignment
+        epics_ioc_uid:
+        # Environment variables shall be passed in a dictionary, if
+        # not list below
+        epics_ioc_env: {}
+        # Leave empty or omit to make variable undefined
+        epics_ioc_env_epics_ca_addr_list: "127.0.0.1"
+        # Leave empty or omit to make variable undefined
+        epics_ioc_env_epics_ca_auto_addr_list: true
+        # Leave empty or omit to make variable undefined
+        epics_ioc_env_epics_ca_max_array_bytes: 10000000
+        # Leave empty or omit to make variable assume default value
+        epics_ioc_env_epics_ioc_log_port: 7004
+        # Leave empty or omit for undefined variable
+        epics_ioc_env_epics_ca_sec_file: ""
+        # Leave empty or omit for undefined variable
+        epics_ioc_env_epics_ioc_log_inet: ""
         make_install_targets:
           - distclean
           - all
