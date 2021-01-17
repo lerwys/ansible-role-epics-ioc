@@ -1,0 +1,24 @@
+---
+- name: Check if git username is set
+  command: "git config --global user.name"
+  changed_when: false
+  failed_when: false
+  register: git_username
+
+- name: Set git default username if empty
+  command: "git config --global user.name {{ epics_ioc_git_username }}"
+  when: git_username is defined and
+        "stdout" in git_username and
+        not git_username.stdout
+
+- name: Check if git useremail is set
+  command: "git config --global user.email"
+  changed_when: false
+  failed_when: false
+  register: git_useremail
+
+- name: Set git default useremail if empty
+  command: "git config --global user.email {{ epics_ioc_git_useremail }}"
+  when: git_useremail is defined and
+        "stdout" in git_useremail and
+        not git_useremail.stdout

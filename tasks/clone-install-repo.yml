@@ -22,34 +22,6 @@
         (item.clone_only is defined and
          item.clone_only | bool))
 
-- name: Check if git username is set
-  command: "git config user.name"
-  args:
-    chdir: "{{ item.clone_path }}/{{ item.repo_name }}"
-  changed_when: false
-  failed_when: false
-  register: git_username
-
-- name: Set git default username if empty
-  command: "git config user.name {{ epics_ioc_git_username }}"
-  args:
-    chdir: "{{ item.clone_path }}/{{ item.repo_name }}"
-  when: not git_username.stdout
-
-- name: Check if git useremail is set
-  command: "git config user.email"
-  args:
-    chdir: "{{ item.clone_path }}/{{ item.repo_name }}"
-  changed_when: false
-  failed_when: false
-  register: git_useremail
-
-- name: Set git default useremail if empty
-  command: "git config user.email {{ epics_ioc_git_useremail }}"
-  args:
-    chdir: "{{ item.clone_path }}/{{ item.repo_name }}"
-  when: not git_useremail.stdout
-
 # Try to preserve local modifications with git stash. This is mostly
 # so we can modify configuration files and make the git task idempotent
 - name: Try to save local modifications if requested

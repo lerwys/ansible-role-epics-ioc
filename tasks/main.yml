@@ -28,6 +28,9 @@
   include_tasks: setup-Debian.yml
   when: ansible_os_family == 'Debian'
 
+- name: Setup git environment
+  include_tasks: setup-git.yml
+
 - name: Clone and install repositories
   include_tasks: clone-install-repo.yml
   with_items:
