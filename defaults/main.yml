@@ -59,6 +59,16 @@ epics_ioc_overwrite_release_file: true
 # defined at the epics_ioc_repos list items.
 epics_ioc_release_filename: RELEASE
 
+# Select epics IOC clone path (as well as install). Used if not
+# defined at the epics_ioc_repos list items.
+epics_ioc_clone_path: "/usr/local/lib/iocapps"
+
+# Select epics IOC boot directory. Used if not
+# defined at the epics_ioc_repos list items.
+# epics_host_arch will, in most cases, be defined
+# at "epics" role
+epics_ioc_boot_dir: "iocBoot/ioc{{ epics_host_arch }}"
+
 # Select which EPICS modules are goind to be templated in
 # RELEASE file. Used as a default if not defined at the
 # epics_ios_repos list items.
@@ -90,6 +100,7 @@ epics_ioc_epics_modules_cfg: []
 #    epics_overwrite_release_file: true
 #    epics_release_filename: RELEASE
 #    epics_base_dir: /usr/lib/epics
+#    epics_ioc_boot_dir: iocBoot/ioclinux-x86_64
 #    epics_manage_user: true
 #    epics_user: ioc
 #    # Leave empty or omit for automatic assignment

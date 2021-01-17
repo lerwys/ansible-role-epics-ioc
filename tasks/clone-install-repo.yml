@@ -1,7 +1,15 @@
 ---
+- name: Set IOC directory name
+  set_fact:
+    repo_clone_path: "{{ item.clone_path | default(epics_ioc_clone_path) }}"
+
+- name: Set IOC boot directory name
+  set_fact:
+    repo_ioc_boot_dir: "{{ item.epics_ioc_boot_dir | default(epics_ioc_boot_dir) }}"
+
 - name: Check if IOC directory already exists
   stat:
-    path: "{{ item.clone_path }}"
+    path: "{{ repo_clone_path }}"
   register: clone_path_stat
   when: (item.install_via_makefile is defined and
         item.install_via_makefile | bool) or
@@ -10,7 +18,7 @@
 
 - name: Ensure IOC directory exists
   file:
-    path: "{{ item.clone_path }}"
+    path: "{{ repo_clone_path }}"
     state: directory
     recurse: true
     mode: 0755
@@ -27,7 +35,7 @@
 - name: Try to save local modifications if requested
   command: git stash
   args:
-    chdir: "{{ item.clone_path }}/{{ item.repo_name }}"
+    chdir: "{{ repo_clone_path }}/{{ item.repo_name }}"
   changed_when: false
   failed_when: false
   when: item.repo_stash is defined and
@@ -40,7 +48,7 @@
 - name: "Ensure repository {{ item.repo_name }} is cloned"
   git:
     repo: "{{ item.org_url }}/{{ item.repo_name }}"
-    dest: "{{ item.clone_path }}/{{ item.repo_name }}"
+    dest: "{{ repo_clone_path }}/{{ item.repo_name }}"
     version: "{{ item.repo_version | default('master') }}"
     accept_hostkey: "{{ item.git_accept_hostkey | default(omit) }}"
     ssh_opts: "{{ item.git_ssh_opts | default(omit) }}"
@@ -58,7 +66,7 @@
 - name: Try to apply local modifications if requested
   command: git stash pop
   args:
-    chdir: "{{ item.clone_path }}/{{ item.repo_name }}"
+    chdir: "{{ repo_clone_path }}/{{ item.repo_name }}"
   changed_when: false
   failed_when: false
   when: item.repo_stash is defined and
@@ -71,7 +79,7 @@
 - name: "Replace RELEASE file with a custom one for {{ item.repo_name }}"
   template:
     src: "RELEASE.j2"
-    dest: "{{ item.clone_path }}/{{ item.repo_name }}/{{ repo_install_chdir }}/configure/{{ item.epics_release_filename |
+    dest: "{{ repo_clone_path }}/{{ item.repo_name }}/{{ repo_install_chdir }}/configure/{{ item.epics_release_filename |
            default(epics_ioc_release_filename) }}"
     owner: "{{ item.make_install_as_user | default(ansible_env.USER, true) | default(ansible_user_id) }}"
     group: "{{ item.make_install_as_user | default(ansible_env.USER, true) | default(ansible_user_id) }}"
@@ -90,7 +98,7 @@
 
 - name: "Install {{ item.repo_name }} via Makefile"
   make:
-    chdir: "{{ item.clone_path }}/{{ item.repo_name }}/{{ repo_install_chdir }}"
+    chdir: "{{ repo_clone_path }}/{{ item.repo_name }}/{{ repo_install_chdir }}"
     target: "{{ make_target | default('install') }}"
     params: "{{ item.make_install_opts | default({}) }}"
   become: true
