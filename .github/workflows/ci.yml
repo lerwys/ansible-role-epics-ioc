@@ -71,7 +71,7 @@ jobs:
             docker
 
       - name: Run Molecule tests
-        run: molecule --debug test
+        run: molecule test
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
