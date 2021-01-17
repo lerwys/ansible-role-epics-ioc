@@ -13,7 +13,7 @@
 
 - name: Set IOC autosave directory name
   set_fact:
-    repo_ioc_autosave_dir: "{{ repo_ioc_autosave_base_dir }}/softioc-{{ item.name }}"
+    repo_ioc_autosave_dir: "{{ repo_ioc_autosave_base_dir }}/softioc-{{ item.repo_name }}"
 
 - name: Set IOC initial environment variables
   set_fact:
