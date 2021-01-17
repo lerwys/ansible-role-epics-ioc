@@ -160,10 +160,10 @@ epics_host_arch will, in most cases, be defined
 at "epics" role
 
 ```yaml
-epics_ioc_autosave_dir: "/var/lib"
+epics_ioc_autosave_base_dir: "/var/lib"
 ```
 
-Select epics IOC autosave directory. Used if not
+Select epics IOC autosave base directory. Used if not
 defined at the epics_ios_repos list items.
 
 
@@ -278,6 +278,8 @@ Example:
         epics_ioc_env_epics_ca_sec_file: ""
         # Leave empty or omit for undefined variable
         epics_ioc_env_epics_ioc_log_inet: ""
+        # Only used if epics_manage_autosave_dir is set to true
+        epics_ioc_autosave_base_dir: /var/lib
         make_install_targets:
           - distclean
           - all
