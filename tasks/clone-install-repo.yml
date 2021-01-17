@@ -7,9 +7,13 @@
   set_fact:
     repo_ioc_boot_dir: "{{ item.epics_ioc_boot_dir | default(epics_ioc_boot_dir) }}"
 
+- name: Set IOC autosave base directory name
+  set_fact:
+    repo_ioc_autosave_base_dir: "{{ item.epics_ioc_autosave_base_dir | default(epics_ioc_autosave_base_dir) }}"
+
 - name: Set IOC autosave directory name
   set_fact:
-    repo_ioc_autosave_dir: "{{ item.epics_manage_autosave_dir | default(epics_ioc_autosave_dir) }}"
+    repo_ioc_autosave_dir: "{{ repo_ioc_autosave_base_dir }}/softioc-{{ item.name }}"
 
 - name: Set IOC initial environment variables
   set_fact:
@@ -68,6 +72,16 @@
             'EPICS_CA_SEC_FILE': item.epics_ioc_env_epics_ca_sec_file | default(omit)
         })
     }}"
+
+- name: Set IOC AUTOSAVE_DIR if requested
+  set_fact:
+    repo_ioc_env_vars: "{{ repo_ioc_env_vars |
+        combine({
+            'AUTOSAVE_DIR': repo_ioc_autosave_dir
+        })
+    }}"
+  when: item.epics_ioc_env_epics_ca_auto_addr_list is defined and
+        (item.epics_ioc_env_epics_ca_auto_addr_list)
 
 - name: Show IOC environment variables
   debug:
