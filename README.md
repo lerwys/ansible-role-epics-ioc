@@ -119,6 +119,63 @@ epics_ioc_gid:
 
 Specify EPICS IOC GID. Leave empty for automatic assignment
 
+```yaml
+epics_ioc_systemd_state: started
+```
+
+Specify IOC systemd state. Used as the default if not
+defined at the epics_ioc_repos list items
+
+```yaml
+epics_ioc_systemd_enabled: true
+```
+
+Specify IOC systemd enabled. Used as the default if not
+defined at the epics_ioc_repos list items
+
+```yaml
+epics_ioc_systemd_coresize: 2147483647
+```
+
+Specify IOC coresize. Used as the default if not
+defined at the epics_ioc_repos list items
+
+```yaml
+epics_ioc_systemd_enable_console_port: true
+```
+
+Specify IOC enable console port. Used as the default if not
+defined at the epics_ioc_repos list items
+
+
+```yaml
+epics_ioc_systemd_console_port: 4051
+```
+
+Specify IOC console port. Used as the default if not
+defined at the epics_ioc_repos list items
+
+```yaml
+epics_ioc_systemd_enable_unix_domain_socket: true
+```
+
+Specify IOC enable unix domain socket. Used as the default if not
+defined at the epics_ioc_repos list items
+
+```yaml
+epics_ioc_systemd_procserv_timefmt: "%c"
+```
+
+Specify IOC procServ time format. Used as the default if not
+defined at the epics_ioc_repos list items
+
+```yaml
+epics_ioc_systemd_procserv_start_script: "st.cmd"
+```
+
+Specify IOC start script. Used as the default if not
+defined at the epics_ioc_repos list items
+
 
 ```yaml
 epics_ioc_epics_base_dir: /usr/lib/epics
