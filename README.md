@@ -320,6 +320,35 @@ Example:
         epics_ioc_user: ioc
         # Leave empty or omit for automatic assignment
         epics_ioc_uid:
+        # Leave empty or omit to default
+        epics_ioc_systemd_state: started
+        # Leave empty or omit to default
+        epics_ioc_systemd_enabled: true
+        # Leave empty or omit to undefined
+        epics_ioc_systemd_requires:
+          - network.target
+        # Leave empty or omit to undefined
+        epics_ioc_systemd_wants:
+          - network.target
+        # Leave empty or omit to undefined
+        epics_ioc_systemd_after:
+          - network.target
+        # Leave empty or omit to undefined
+        epics_ioc_systemd_requires_mounts_for: []
+        # Leave empty or omit to default
+        epics_ioc_systemd_coresize:
+        # Leave empty or omit to default
+        epics_ioc_systemd_enable_console_port: true
+        # Leave empty or omit to default
+        epics_ioc_systemd_console_port:
+        # Leave empty or omit to default
+        epics_ioc_systemd_enable_unix_domain_socket:
+        # Leave empty or omit to default
+        epics_ioc_systemd_unix_domain_socket:
+        # Leave empty or omit to default
+        epics_ioc_systemd_procserv_timefmt:
+        # Leave empty or omit to default
+        epics_ioc_systemd_procserv_start_script:
         # Environment variables shall be passed in a dictionary, if
         # not list below
         epics_ioc_env: {}
