@@ -98,6 +98,69 @@
   debug:
     msg: "IOC environment variables: {{ repo_ioc_env_vars }}"
 
+- name: Set IOC coresize
+  set_fact:
+    repo_ioc_coresize: "{{ (item.epics_ioc_systemd_coresize is defined and item.epics_ioc_systemd_coresize) |
+        ternary(item.epics_ioc_systemd_coresize, epics_ioc_systemd_coresize) }}"
+
+- name: Set IOC procServ log file
+  set_fact:
+    repo_ioc_procserv_log_file: "/var/log/softioc-{{ item.repo_name }}/procServ.log"
+
+- name: Set IOC enable console port
+  set_fact:
+    repo_ioc_enable_console_port: "{{ (item.epics_ioc_systemd_enable_console_port is defined and item.epics_ioc_systemd_enable_console_port) |
+        ternary(item.epics_ioc_systemd_enable_console_port, epics_ioc_systemd_enable_console_port) }}"
+
+- name: Set IOC console port
+  set_fact:
+    repo_ioc_console_port: "{{ (item.epics_ioc_systemd_console_port is defined and item.epics_ioc_systemd_console_port) |
+        ternary(item.epics_ioc_systemd_console_port, epics_ioc_systemd_console_port) }}"
+
+- name: Set IOC systemd procServ console port string
+  set_fact:
+    repo_ioc_systemd_procserv_console_port: "--port {{ repo_ioc_console_port }}"
+  when: repo_ioc_enable_console_port | bool
+
+- name: Set IOC systemd procServ console port string to default
+  set_fact:
+    repo_ioc_systemd_procserv_console_port: ""
+  when: not repo_ioc_enable_console_port | bool
+
+- name: Set IOC enable unix domain socket
+  set_fact:
+    repo_ioc_enable_unix_domain_socket: "{{ (item.epics_ioc_systemd_enable_unix_domain_socket is defined and item.epics_ioc_systemd_enable_unix_domain_socket) |
+        ternary(item.epics_ioc_systemd_enable_unix_domain_socket, epics_ioc_systemd_enable_unix_domain_socket) }}"
+
+- name: Set default IOC unix domain socket
+  set_fact:
+    repo_ioc_default_unix_domain_socket: "softioc-{{ item.repo_name }}/procServ.sock"
+
+- name: Set IOC unix domain socket
+  set_fact:
+    repo_ioc_unix_domain_socket: "{{ (item.epics_ioc_systemd_unix_domain_socket is defined and item.epics_ioc_systemd_unix_domain_socket) |
+        ternary(item.epics_ioc_systemd_unix_domain_socket, repo_ioc_default_unix_domain_socket) }}"
+
+- name: Set IOC systemd procServ unix domain socket string
+  set_fact:
+    repo_ioc_systemd_procserv_unix_domain_socket: "--port unix:/run/{{ repo_ioc_unix_domain_socket }}"
+  when: repo_ioc_enable_unix_domain_socket | bool
+
+- name: Set IOC systemd procServ unix domain socket string to default
+  set_fact:
+    repo_ioc_systemd_procserv_unix_domain_socket: ""
+  when: not repo_ioc_enable_unix_domain_socket | bool
+
+- name: Set IOC ProcServ time format
+  set_fact:
+    repo_ioc_procserv_timefmt: "{{ (item.epics_ioc_systemd_procserv_timefmt is defined and item.epics_ioc_systemd_procserv_timefmt) |
+        ternary(item.epics_ioc_systemd_procserv_timefmt, epics_ioc_systemd_procserv_timefmt) }}"
+
+- name: Set IOC ProcServ start script
+  set_fact:
+    repo_ioc_procserv_start_script: "{{ (item.epics_ioc_systemd_procserv_start_script is defined and item.epics_ioc_systemd_procserv_start_script) |
+        ternary(item.epics_ioc_systemd_procserv_start_script, epics_ioc_systemd_procserv_start_script) }}"
+
 - name: Check if IOC directory already exists
   stat:
     path: "{{ repo_clone_path }}"
@@ -222,3 +285,59 @@
   become: true
   become_user: "{{ ansible_ssh_user | default(ansible_env.SUDO_USER, true) | default(ansible_env.USER, true) | default(ansible_user_id) }}"
   when: item.epics_manage_autosave_dir | default(false) | bool
+
+- name: Create list of environment variables for systemd unit
+  set_fact:
+    repo_ioc_systemd_env_vars_list: "{{ repo_ioc_systemd_env_vars_list | default([]) +
+        [systemd_env_item.key | string + '=' + systemd_env_item.value | string] }}"
+  loop: "{{ repo_ioc_env_vars | dict2items }}"
+  loop_control:
+    loop_var: systemd_env_item
+
+- name: Create space-separated string for systemd Wants
+  set_fact:
+    repo_ioc_systemd_wants: "{{ item.epics_ioc_systemd_wants | default([]) | join(' ') }}"
+
+- name: Create space-separated string for systemd Requires
+  set_fact:
+    repo_ioc_systemd_requires: "{{ item.epics_ioc_systemd_requires | default([]) | join(' ') }}"
+
+- name: Create space-separated string for systemd After
+  set_fact:
+    repo_ioc_systemd_after: "{{ item.epics_ioc_systemd_after | default([]) | join(' ') }}"
+
+- name: Create space-separated string for systemd RequireMountsFor
+  set_fact:
+    repo_ioc_systemd_requires_mounts_for: "{{ item.epics_ioc_systemd_requires_mounts_for | default([]) | join(' ') }}"
+
+- name: "Setup {{ item.repo_name }} service file"
+  include_role:
+    name: lerwys.systemd
+  vars:
+    unit_config:
+      - name: "softioc-{{ item.repo_name }}"
+        state: "{{ item.epics_ioc_systemd_state | default(epics_ioc_systemd_state) }}"
+        enabled: "{{ item.epics_ioc_systemd_enabled | default(epics_ioc_systemd_enabled) }}"
+        Unit:
+          Description: "EPICS Soft IOC {{ item.repo_name }}"
+          Wants: "{{ repo_ioc_systemd_wants }}"
+          Requires: "{{ repo_ioc_systemd_requires }}"
+          After: "{{ repo_ioc_systemd_after }}"
+          RequiresMountsFor: "{{ repo_ioc_systemd_requires_mounts_for }}"
+        Service:
+          Environment: "{{ repo_ioc_systemd_env_vars_list }}"
+          ExecStart: >-
+              /usr/bin/procServ --foreground --quiet
+              --chdir={{ repo_ioc_boot_dir }}
+              --ignore=^C^D^]
+              --coresize={{ repo_ioc_coresize }} --restrict
+              --logfile={{ repo_ioc_procserv_log_file }}
+              --name {{ item.repo_name }}
+              {{ repo_ioc_systemd_procserv_console_port }}
+              {{ repo_ioc_systemd_procserv_unix_domain_socket }}
+              --timefmt={{ repo_ioc_procserv_timefmt | regex_replace('%', '%%')  }}
+              {{ repo_ioc_procserv_start_script }}
+          Restart: always
+          User: "{{ repo_epics_ioc_user }}"
+        Install:
+          WantedBy: multi-user.target

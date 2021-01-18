@@ -51,6 +51,38 @@ epics_ioc_user_name: softioc
 # Specify EPICS IOC GID. Leave empty for automatic assignment
 epics_ioc_gid:
 
+# Specify IOC systemd state. Used as the default if not
+# defined at the epics_ioc_repos list items
+epics_ioc_systemd_state: started
+
+# Specify IOC systemd enabled. Used as the default if not
+# defined at the epics_ioc_repos list items
+epics_ioc_systemd_enabled: true
+
+# Specify IOC coresize. Used as the default if not
+# defined at the epics_ioc_repos list items
+epics_ioc_systemd_coresize: 2147483647
+
+# Specify IOC enable console port. Used as the default if not
+# defined at the epics_ioc_repos list items
+epics_ioc_systemd_enable_console_port: true
+
+# Specify IOC console port. Used as the default if not
+# defined at the epics_ioc_repos list items
+epics_ioc_systemd_console_port: 4051
+
+# Specify IOC enable unix domain socket. Used as the default if not
+# defined at the epics_ioc_repos list items
+epics_ioc_systemd_enable_unix_domain_socket: true
+
+# Specify IOC procServ time format. Used as the default if not
+# defined at the epics_ioc_repos list items
+epics_ioc_systemd_procserv_timefmt: "%c"
+
+# Specify IOC start script. Used as the default if not
+# defined at the epics_ioc_repos list items
+epics_ioc_systemd_procserv_start_script: "st.cmd"
+
 # Select where EPICS base libraries are installed. Used as the default
 # if not defined at the epics_ioc_repos list items.
 epics_ioc_epics_base_dir: /usr/lib/epics
@@ -114,6 +146,35 @@ epics_ioc_epics_ioc_modules: []
 #    epics_ioc_user: ioc
 #    # Leave empty or omit for automatic assignment
 #    epics_ioc_uid:
+#    # Leave empty or omit to default
+#    epics_ioc_systemd_state: started
+#    # Leave empty or omit to default
+#    epics_ioc_systemd_enabled: true
+#    # Leave empty or omit to undefined
+#    epics_ioc_systemd_requires:
+#      - network.target
+#    # Leave empty or omit to undefined
+#    epics_ioc_systemd_wants:
+#      - network.target
+#    # Leave empty or omit to undefined
+#    epics_ioc_systemd_after:
+#      - network.target
+#    # Leave empty or omit to undefined
+#    epics_ioc_systemd_requires_mounts_for: []
+#    # Leave empty or omit to default
+#    epics_ioc_systemd_coresize:
+#    # Leave empty or omit to default
+#    epics_ioc_systemd_enable_console_port: true
+#    # Leave empty or omit to default
+#    epics_ioc_systemd_console_port:
+#    # Leave empty or omit to default
+#    epics_ioc_systemd_enable_unix_domain_socket:
+#    # Leave empty or omit to default
+#    epics_ioc_systemd_unix_domain_socket:
+#    # Leave empty or omit to default
+#    epics_ioc_systemd_procserv_timefmt:
+#    # Leave empty or omit to default
+#    epics_ioc_systemd_procserv_start_script:
 #    # Environment variables shall be passed in a dictionary, if
 #    # not list below
 #    epics_ioc_env: {}
