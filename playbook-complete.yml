@@ -22,7 +22,8 @@
         epics_ioc_overwrite_release_file: true
         epics_ioc_release_filename: RELEASE
         epics_base_dir: /usr/lib/epics
-        epics_ioc_boot_dir: iocBoot/ioclinux-x86_64
+        # no iocBoot in this IOC. st.cmd sits on top-level
+        epics_ioc_boot_dir: ""
         epics_manage_user: true
         epics_manage_autosave_dir: true
         epics_ioc_user: ioc
