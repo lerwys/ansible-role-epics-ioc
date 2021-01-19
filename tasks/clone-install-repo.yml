@@ -11,6 +11,10 @@
   set_fact:
     repo_ioc_boot_dir: "{{ item.epics_ioc_boot_dir | default(epics_ioc_boot_dir) }}"
 
+- name: Set IOC absolute boot directory name
+  set_fact:
+    repo_ioc_abs_boot_dir: "{{ repo_clone_path }}/{{ repo_ioc_boot_dir }}"
+
 - name: Set IOC autosave base directory name
   set_fact:
     repo_ioc_autosave_base_dir: "{{ item.epics_ioc_autosave_base_dir | default(epics_ioc_autosave_base_dir) }}"
@@ -160,6 +164,10 @@
   set_fact:
     repo_ioc_procserv_start_script: "{{ (item.epics_ioc_systemd_procserv_start_script is defined and item.epics_ioc_systemd_procserv_start_script) |
         ternary(item.epics_ioc_systemd_procserv_start_script, epics_ioc_systemd_procserv_start_script) }}"
+
+- name: Set IOC absolute ProcServ start script
+  set_fact:
+    repo_ioc_abs_procserv_start_script: "{{ repo_ioc_abs_boot_dir }}/{{ repo_ioc_procserv_start_script }}"
 
 - name: Set IOC systemd unit notify
   set_fact:
@@ -331,7 +339,7 @@
           Environment: "{{ repo_ioc_systemd_env_vars_list }}"
           ExecStart: >-
               /usr/bin/procServ --foreground --quiet
-              --chdir={{ repo_ioc_boot_dir }}
+              --chdir={{ repo_ioc_abs_boot_dir }}
               --ignore=^C^D^]
               --coresize={{ repo_ioc_coresize }} --restrict
               --logfile={{ repo_ioc_procserv_log_file }}
@@ -339,7 +347,7 @@
               {{ repo_ioc_systemd_procserv_console_port }}
               {{ repo_ioc_systemd_procserv_unix_domain_socket }}
               --timefmt={{ repo_ioc_procserv_timefmt | regex_replace('%', '%%')  }}
-              {{ repo_ioc_procserv_start_script }}
+              {{ repo_ioc_abs_procserv_start_script }}
           Restart: always
           User: "{{ repo_epics_ioc_user }}"
         Install:
