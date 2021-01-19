@@ -161,6 +161,11 @@
     repo_ioc_procserv_start_script: "{{ (item.epics_ioc_systemd_procserv_start_script is defined and item.epics_ioc_systemd_procserv_start_script) |
         ternary(item.epics_ioc_systemd_procserv_start_script, epics_ioc_systemd_procserv_start_script) }}"
 
+- name: Set IOC systemd unit notify
+  set_fact:
+    repo_ioc_systemd_notify: "{{ (item.epics_ioc_systemd_notify is defined and item.epics_ioc_systemd_notify) |
+        ternary(item.epics_ioc_systemd_notify, epics_ioc_systemd_notify) }}"
+
 - name: Check if IOC directory already exists
   stat:
     path: "{{ repo_clone_path }}"
@@ -310,11 +315,9 @@
   set_fact:
     repo_ioc_systemd_requires_mounts_for: "{{ item.epics_ioc_systemd_requires_mounts_for | default([]) | join(' ') }}"
 
-- name: "Setup {{ item.repo_name }} service file"
-  include_role:
-    name: lerwys.systemd
-  vars:
-    unit_config:
+- name: Set base systemd unit variable
+  set_fact:
+    __systemd_unit_config:
       - name: "softioc-{{ item.repo_name }}"
         state: "{{ item.epics_ioc_systemd_state | default(epics_ioc_systemd_state) }}"
         enabled: "{{ item.epics_ioc_systemd_enabled | default(epics_ioc_systemd_enabled) }}"
@@ -341,3 +344,24 @@
           User: "{{ repo_epics_ioc_user }}"
         Install:
           WantedBy: multi-user.target
+
+- name: Set systemd notify variable if requested
+  set_fact:
+    systemd_unit_config: "{{ systemd_unit_config | default([]) + [
+        systemd_unit_config_item | combine({
+            'Service' : {
+                'Type': 'notify',
+                'NotifyAccess': 'all',
+            }
+        }, recursive=true)
+    ] }}"
+  when: repo_ioc_systemd_notify | bool
+  loop: "{{ __systemd_unit_config }}"
+  loop_control:
+    loop_var: systemd_unit_config_item
+
+- name: "Setup {{ item.repo_name }} service file"
+  include_role:
+    name: lerwys.systemd
+  vars:
+    unit_config: "{{ systemd_unit_config }}"

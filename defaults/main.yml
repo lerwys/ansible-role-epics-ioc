@@ -83,6 +83,10 @@ epics_ioc_systemd_procserv_timefmt: "%c"
 # defined at the epics_ioc_repos list items
 epics_ioc_systemd_procserv_start_script: "st.cmd"
 
+# Specify IOC systemd notify unit type. Used as the default if not
+# defined at the epics_ioc_repos list items
+epics_ioc_systemd_notify: false
+
 # Select where EPICS base libraries are installed. Used as the default
 # if not defined at the epics_ioc_repos list items.
 epics_ioc_epics_base_dir: /usr/lib/epics
@@ -175,6 +179,8 @@ epics_ioc_epics_ioc_modules: []
 #    epics_ioc_systemd_procserv_timefmt:
 #    # Leave empty or omit to default
 #    epics_ioc_systemd_procserv_start_script:
+#    # Leave empty or omit to default
+#    epics_ioc_systemd_notify:
 #    # Environment variables shall be passed in a dictionary, if
 #    # not list below
 #    epics_ioc_env: {}
