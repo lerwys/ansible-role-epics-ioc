@@ -176,6 +176,13 @@ epics_ioc_systemd_procserv_start_script: "st.cmd"
 Specify IOC start script. Used as the default if not
 defined at the epics_ioc_repos list items
 
+```yaml
+epics_ioc_systemd_notify: false
+```
+
+Specify IOC systemd notify unit type. Used as the default if not
+defined at the epics_ioc_repos list items
+
 
 ```yaml
 epics_ioc_epics_base_dir: /usr/lib/epics
