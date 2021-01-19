@@ -57,6 +57,8 @@
         epics_ioc_systemd_procserv_timefmt:
         # Leave empty or omit to default
         epics_ioc_systemd_procserv_start_script:
+        # Leave empty or omit to default
+        epics_ioc_systemd_notify: true
         # Environment variables shall be passed in a dictionary, if
         # not list below
         epics_ioc_env: {}
