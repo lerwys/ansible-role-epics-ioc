@@ -3,9 +3,13 @@
   set_fact:
     repo_epics_ioc_user: "{{ item.epics_ioc_user | default(epics_ioc_user_name) }}"
 
-- name: Set IOC directory name
+- name: Set IOC parent directory name
   set_fact:
     repo_clone_path: "{{ item.clone_path | default(epics_ioc_clone_path) }}"
+
+- name: Set IOC absolute directory name
+  set_fact:
+    repo_ioc_abs_dir: "{{ repo_clone_path }}/{{ item.repo_name }}"
 
 - name: Set IOC boot directory name
   set_fact:
@@ -13,7 +17,7 @@
 
 - name: Set IOC absolute boot directory name
   set_fact:
-    repo_ioc_abs_boot_dir: "{{ repo_clone_path }}/{{ repo_ioc_boot_dir }}"
+    repo_ioc_abs_boot_dir: "{{ repo_ioc_abs_dir }}/{{ repo_ioc_boot_dir }}"
 
 - name: Set IOC autosave base directory name
   set_fact:
@@ -174,7 +178,7 @@
     repo_ioc_systemd_notify: "{{ (item.epics_ioc_systemd_notify is defined and item.epics_ioc_systemd_notify) |
         ternary(item.epics_ioc_systemd_notify, epics_ioc_systemd_notify) }}"
 
-- name: Check if IOC directory already exists
+- name: Check if parent IOC directory already exists
   stat:
     path: "{{ repo_clone_path }}"
   register: clone_path_stat
@@ -183,7 +187,7 @@
         (item.clone_only is defined and
          item.clone_only | bool)
 
-- name: Ensure IOC directory exists
+- name: Ensure parent IOC directory exists
   file:
     path: "{{ repo_clone_path }}"
     state: directory
@@ -202,7 +206,7 @@
 - name: Try to save local modifications if requested
   command: git stash
   args:
-    chdir: "{{ repo_clone_path }}/{{ item.repo_name }}"
+    chdir: "{{ repo_ioc_abs_dir }}"
   changed_when: false
   failed_when: false
   when: item.repo_stash is defined and
@@ -215,7 +219,7 @@
 - name: "Ensure repository {{ item.repo_name }} is cloned"
   git:
     repo: "{{ item.org_url }}/{{ item.repo_name }}"
-    dest: "{{ repo_clone_path }}/{{ item.repo_name }}"
+    dest: "{{ repo_ioc_abs_dir }}"
     version: "{{ item.repo_version | default('master') }}"
     accept_hostkey: "{{ item.git_accept_hostkey | default(omit) }}"
     ssh_opts: "{{ item.git_ssh_opts | default(omit) }}"
@@ -233,7 +237,7 @@
 - name: Try to apply local modifications if requested
   command: git stash pop
   args:
-    chdir: "{{ repo_clone_path }}/{{ item.repo_name }}"
+    chdir: "{{ repo_ioc_abs_dir }}"
   changed_when: false
   failed_when: false
   when: item.repo_stash is defined and
@@ -246,7 +250,7 @@
 - name: "Replace RELEASE file with a custom one for {{ item.repo_name }}"
   template:
     src: "RELEASE.j2"
-    dest: "{{ repo_clone_path }}/{{ item.repo_name }}/{{ repo_install_chdir }}/configure/{{ item.epics_ioc_release_filename |
+    dest: "{{ repo_ioc_abs_dir }}/{{ repo_install_chdir }}/configure/{{ item.epics_ioc_release_filename |
            default(epics_ioc_release_filename) }}"
     owner: "{{ item.make_install_as_user | default(ansible_env.USER, true) | default(ansible_user_id) }}"
     group: "{{ item.make_install_as_user | default(ansible_env.USER, true) | default(ansible_user_id) }}"
@@ -265,7 +269,7 @@
 
 - name: "Install {{ item.repo_name }} via Makefile"
   make:
-    chdir: "{{ repo_clone_path }}/{{ item.repo_name }}/{{ repo_install_chdir }}"
+    chdir: "{{ repo_ioc_abs_dir }}/{{ repo_install_chdir }}"
     target: "{{ make_target | default('install') }}"
     params: "{{ item.make_install_opts | default({}) }}"
   become: true
