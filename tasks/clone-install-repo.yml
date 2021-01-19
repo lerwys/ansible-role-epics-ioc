@@ -329,7 +329,7 @@
 
 - name: Set base systemd unit variable
   set_fact:
-    __systemd_unit_config:
+    systemd_unit_config:
       - name: "softioc-{{ item.repo_name }}"
         state: "{{ item.epics_ioc_systemd_state | default(epics_ioc_systemd_state) }}"
         enabled: "{{ item.epics_ioc_systemd_enabled | default(epics_ioc_systemd_enabled) }}"
@@ -359,7 +359,7 @@
 
 - name: Set systemd notify variable if requested
   set_fact:
-    __systemd_unit_config_notify: "{{ __systemd_unit_config_notify | default([]) + [
+    systemd_unit_config: "{{ systemd_unit_config | default([]) + [
         systemd_unit_config_item | combine({
             'Service' : {
                 'Type': 'notify',
@@ -368,23 +368,23 @@
         }, recursive=true)
     ] }}"
   when: repo_ioc_systemd_notify | bool
-  loop: "{{ __systemd_unit_config }}"
+  loop: "{{ systemd_unit_config }}"
   loop_control:
     loop_var: systemd_unit_config_item
 
 - name: Set systemd UNIX domain socket runtime directory if requested
   set_fact:
     systemd_unit_config: "{{ systemd_unit_config | default([]) + [
-        systemd_unit_config_notify_item | combine({
+        systemd_unit_config_item | combine({
             'Service' : {
                 'RuntimeDirectory': repo_ioc_unix_domain_socket | dirname
             }
         }, recursive=true)
     ] }}"
   when: repo_ioc_enable_unix_domain_socket | bool
-  loop: "{{ __systemd_unit_config_notify }}"
+  loop: "{{ systemd_unit_config }}"
   loop_control:
-    loop_var: systemd_unit_config_notify_item
+    loop_var: systemd_unit_config_item
 
 - name: "Setup {{ item.repo_name }} service file"
   include_role:
