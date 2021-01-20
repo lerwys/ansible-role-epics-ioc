@@ -77,6 +77,12 @@
         epics_ioc_env_epics_ioc_log_inet: ""
         # Only used if epics_manage_autosave_dir is set to true
         epics_ioc_autosave_base_dir: /var/lib
+        # Leave empty or omit to default
+        epics_ioc_logrotate_rotate:
+        # Leave empty or omit to default
+        epics_ioc_logrotate_size:
+        # Leave empty or omit to default
+        epics_ioc_logrotate_compress:
         make_install_targets:
           - distclean
           - all
