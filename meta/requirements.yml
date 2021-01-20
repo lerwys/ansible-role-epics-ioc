@@ -1,3 +1,4 @@
 ---
 - lerwys.epics
 - lerwys.systemd
+- lerwys.logrotate
