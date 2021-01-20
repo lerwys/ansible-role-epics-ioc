@@ -178,6 +178,21 @@
     repo_ioc_systemd_notify: "{{ (item.epics_ioc_systemd_notify is defined and item.epics_ioc_systemd_notify) |
         ternary(item.epics_ioc_systemd_notify, epics_ioc_systemd_notify) }}"
 
+- name: Set IOC logrotate rotate
+  set_fact:
+    repo_ioc_logrotate_rotate: "{{ (item.epics_ioc_logrotate_rotate is defined and item.epics_ioc_logrotate_rotate) |
+        ternary(item.epics_ioc_logrotate_rotate, epics_ioc_logrotate_rotate) }}"
+
+- name: Set IOC logrotate size
+  set_fact:
+    repo_ioc_logrotate_size: "{{ (item.epics_ioc_logrotate_size is defined and item.epics_ioc_logrotate_size) |
+        ternary(item.epics_ioc_logrotate_size, epics_ioc_logrotate_size) }}"
+
+- name: Set IOC logrotate compress
+  set_fact:
+    repo_ioc_logrotate_compress: "{{ (item.epics_ioc_logrotate_compress is defined and item.epics_ioc_logrotate_compress) |
+        ternary(item.epics_ioc_logrotate_compress, epics_ioc_logrotate_compress) }}"
+
 - name: Check if parent IOC directory already exists
   stat:
     path: "{{ repo_clone_path }}"
@@ -389,3 +404,34 @@
     name: lerwys.systemd
   vars:
     unit_config: "{{ systemd_unit_config }}"
+
+- name: "Set logrotate postrotate command for {{ item.repo_name }} systemd unit"
+  set_fact:
+    logrotate_postrotate_cmd: "/bin/systemctl kill --signal=HUP --kill-who=main softioc-{{ item.repo_name }}.service"
+
+- name: Ensure IOC log directory exists
+  file:
+    path: "/var/log/softioc-{{ item.repo_name }}"
+    state: directory
+    owner: "{{ repo_epics_ioc_user }}"
+    group: "{{ epics_ioc_group_name }}"
+    mode: 2755
+  become: true
+
+- name: "Setup logrotate for {{ item.repo_name }}"
+  include_role:
+    name: lerwys.logrotate
+  vars:
+    logrotate_applications:
+      - name: "softioc-{{ item.repo_name }}"
+        definitions:
+          - logs:
+              - "{{ repo_ioc_procserv_log_file }}"
+            options:
+              - "daily"
+              - "size {{ repo_ioc_logrotate_size }}"
+              - "rotate {{ repo_ioc_logrotate_rotate }}"
+              - "ifempty"
+              - "{{ 'compress' if repo_ioc_logrotate_compress | bool else '' }}"
+            postrotate:
+              - "{{ logrotate_postrotate_cmd }}"
