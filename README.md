@@ -232,6 +232,29 @@ defined at the epics_ios_repos list items.
 
 
 ```yaml
+epics_ioc_logrotate_rotate: 30
+```
+
+Select the number of rotated log files to keep on disk.
+Used if not defined at the epics_ios_repos list items.
+
+
+```yaml
+epics_ioc_logrotate_size: "10M"
+```
+
+Select the size a log file has to reach before it will be
+rotated. Used if not defined at the epics_ios_repos list items.
+
+
+```yaml
+epics_ioc_logrotate_compress: true
+```
+Select whether to compress the IOC's log files when rotating them.
+Used if not defined at the epics_ios_repos list items.
+
+
+```yaml
 epics_ioc_epics_ioc_modules: []
 ```
 
@@ -376,6 +399,12 @@ Example:
         epics_ioc_env_epics_ioc_log_inet: ""
         # Only used if epics_manage_autosave_dir is set to true
         epics_ioc_autosave_base_dir: /var/lib
+        # Leave empty or omit to default
+        epics_ioc_logrotate_rotate:
+        # Leave empty or omit to default
+        epics_ioc_logrotate_size:
+        # Leave empty or omit to default
+        epics_ioc_logrotate_compress:
         make_install_targets:
           - distclean
           - all
