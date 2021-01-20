@@ -194,7 +194,6 @@
     recurse: true
     mode: 0755
   become: true
-  become_user: "{{ ansible_ssh_user | default(ansible_env.SUDO_USER, true) | default(ansible_env.USER, true) | default(ansible_user_id) }}"
   when: not clone_path_stat.stat.exists and
         ((item.install_via_makefile is defined and
         item.install_via_makefile | bool) or
@@ -300,7 +299,6 @@
     group: "{{ epics_ioc_group_name }}"
     mode: 0755
   become: true
-  become_user: "{{ ansible_ssh_user | default(ansible_env.SUDO_USER, true) | default(ansible_env.USER, true) | default(ansible_user_id) }}"
   when: item.epics_manage_autosave_dir | default(false) | bool
 
 - name: Create list of environment variables for systemd unit
