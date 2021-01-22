@@ -33,6 +33,10 @@ jobs:
             yamllint \
             ansible-lint
 
+      - name: Lint code with yamllint
+        run: |
+          yamllint .
+
       # remove meta/requirements.yml as ansible-lint crashes with:
       # AttributeError: 'AnsibleUnicode' object has no attribute 'items'
       - name: Remove meta/requirements.yml to avoid bug
@@ -40,9 +44,8 @@ jobs:
           rm requirements.yml
         working-directory: ./meta
 
-      - name: Lint code
+      - name: Lint code with ansible-lint
         run: |
-          yamllint .
           ansible-lint .
 
   molecule:
