@@ -215,6 +215,22 @@ Select epics IOC clone path (as well as install). Used if not
 defined at the epics_ioc_repos list items.
 
 ```yaml
+epics_manage_user: true
+```
+
+Select is we need to manage EPICS IOC user. Used if not
+defined at the epics_ios_repos list items.
+
+
+```yaml
+epics_manage_autosave_dir: true
+```
+
+Select is we need to manage EPICS IOC autosave directory. Used if not
+defined at the epics_ios_repos list items.
+
+
+```yaml
 epics_ioc_boot_dir: "iocBoot/ioc{{ epics_host_arch }}"
 ```
 

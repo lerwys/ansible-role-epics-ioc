@@ -100,7 +100,7 @@
             'AUTOSAVE_DIR': repo_ioc_autosave_dir
         })
     }}"
-  when: item.epics_manage_autosave_dir | default(false) | bool
+  when: item.epics_manage_autosave_dir | default(epics_manage_autosave_dir) | bool
 
 - name: Show IOC environment variables
   debug:
@@ -304,7 +304,7 @@
             (item.epics_ioc_uid)) | ternary(item.epics_ioc_uid, omit) }}"
     group: "{{ epics_ioc_group_name }}"
   become: true
-  when: item.epics_manage_user | default(true) | bool
+  when: item.epics_manage_user | default(epics_manage_user) | bool
 
 - name: Ensure IOC autosave directory exists if requested
   file:
@@ -314,7 +314,7 @@
     group: "{{ epics_ioc_group_name }}"
     mode: 0755
   become: true
-  when: item.epics_manage_autosave_dir | default(false) | bool
+  when: item.epics_manage_autosave_dir | default(epics_manage_autosave_dir) | bool
 
 - name: Create list of environment variables for systemd unit
   set_fact:

@@ -109,6 +109,14 @@ epics_ioc_clone_path: "/usr/local/lib/iocapps"
 # at "epics" role
 epics_ioc_boot_dir: "iocBoot/ioc{{ epics_host_arch }}"
 
+# Select is we need to manage EPICS IOC user. Used if not
+# defined at the epics_ios_repos list items.
+epics_manage_user: true
+
+# Select is we need to manage EPICS IOC autosave directory. Used if not
+# defined at the epics_ios_repos list items.
+epics_manage_autosave_dir: true
+
 # Select epics IOC autosave base directory. Used if not
 # defined at the epics_ios_repos list items.
 epics_ioc_autosave_base_dir: "/var/lib"
