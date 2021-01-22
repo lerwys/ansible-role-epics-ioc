@@ -373,7 +373,7 @@
 
 - name: Set systemd notify variable if requested
   set_fact:
-    systemd_unit_config: "{{ systemd_unit_config | default([]) + [
+    systemd_unit_config: "{{ [
         systemd_unit_config_item | combine({
             'Service' : {
                 'Type': 'notify',
@@ -388,7 +388,7 @@
 
 - name: Set systemd UNIX domain socket runtime directory if requested
   set_fact:
-    systemd_unit_config: "{{ systemd_unit_config | default([]) + [
+    systemd_unit_config: "{{ [
         systemd_unit_config_item | combine({
             'Service' : {
                 'RuntimeDirectory': repo_ioc_unix_domain_socket | dirname
