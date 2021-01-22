@@ -1,7 +1,7 @@
 ---
 - name: Set IOC username
   set_fact:
-    repo_epics_ioc_user: "{{ item.epics_ioc_user | default(epics_ioc_user_name) }}"
+    repo_epics_ioc_user_name: "{{ item.epics_ioc_user_name | default(epics_ioc_user_name) }}"
 
 - name: Set IOC parent directory name
   set_fact:
@@ -297,7 +297,7 @@
 
 - name: "Manage user for {{ item.repo_name }}"
   user:
-    name: "{{ repo_epics_ioc_user }}"
+    name: "{{ repo_epics_ioc_user_name }}"
     home: "/epics/ioc/{{ item.repo_name }}"
     comment: "{{ item.repo_name }} IOC"
     uid: "{{ ((item.epics_ioc_uid is defined) and
@@ -310,7 +310,7 @@
   file:
     path: "{{ repo_ioc_autosave_dir }}"
     state: directory
-    owner: "{{ repo_epics_ioc_user }}"
+    owner: "{{ repo_epics_ioc_user_name }}"
     group: "{{ epics_ioc_group_name }}"
     mode: 0755
   become: true
@@ -366,7 +366,7 @@
               --timefmt={{ repo_ioc_procserv_timefmt | regex_replace('%', '%%')  }}
               {{ repo_ioc_abs_procserv_start_script }}
           Restart: always
-          User: "{{ repo_epics_ioc_user }}"
+          User: "{{ repo_epics_ioc_user_name }}"
         Install:
           WantedBy: multi-user.target
 
@@ -413,7 +413,7 @@
   file:
     path: "/var/log/softioc-{{ item.repo_name }}"
     state: directory
-    owner: "{{ repo_epics_ioc_user }}"
+    owner: "{{ repo_epics_ioc_user_name }}"
     group: "{{ epics_ioc_group_name }}"
     mode: 02755
   become: true

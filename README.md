@@ -298,7 +298,7 @@ Example:
   epics_ioc_release_filename: RELEASE
   epics_base_dir: /usr/lib/epics
   epics_manage_user: true
-  epics_ioc_user: ioc
+  epics_ioc_user_name: ioc
   # Leave empty or omit for automatic assignment
   epics_ioc_uid:
   make_install_targets:
@@ -348,7 +348,7 @@ Example:
         epics_ioc_boot_dir: ""
         epics_manage_user: true
         epics_manage_autosave_dir: true
-        epics_ioc_user: ioc
+        epics_ioc_user_name: ioc
         # Leave empty or omit for automatic assignment
         epics_ioc_uid:
         # Leave empty or omit to default
