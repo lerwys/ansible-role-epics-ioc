@@ -154,55 +154,111 @@ epics_ioc_epics_ioc_modules: []
 # Example
 #
 #  - name: tekScope EPICS IOC
+#    # URL of repository
 #    org_url: https://github.com/brunoseivam
+#    # Repository name
 #    repo_name: tekScope
+#    # Repository branch/tag/commit
 #    repo_version: master
+#    # Tries to save the repository local changes before fetching.
+#    # Options are: true, false. Leave empty for false
 #    repo_stash: true
+#    # Destination of cloned repository
 #    clone_path: /tmp
+#    # Only clone repository and don't try to install it.
+#    # Options are: true, false. Leave empty for false
+#    clone_only: true
+#    # Install repository via make command.
+#    # Options are: true, false. Leave empty for false.
+#    # If set to true, will assume clone_only = true, as well.
 #    install_via_makefile: true
-#    epics_ioc_modules: []
+#    # List of EPICS Modules to add to the IOC RELEASE file
+#    epics_ioc_modules:
+#      - ASYN=/usr/lib/epics
+#      - STREAM=/usr/lib/epics
+#      - CALC=/usr/lib/epics
+#    # Select if we want to create/override the IOC RELEASE file.
+#    # Options are true, false.
+#    # Default is defined with the same  global variable name.
 #    epics_ioc_overwrite_release_file: true
+#    # Name of the overriden IOC RELEASE file.
+#    # Default is defined with the same global variable name.
 #    epics_ioc_release_filename: RELEASE
+#    # Location of EPICS base directory.
+#    # Default is defined with the same global variable name.
 #    epics_base_dir: /usr/lib/epics
-#    epics_ioc_boot_dir: iocBoot/ioclinux-x86_64
+#    # Location of EPICS IOC boot directory. Relative to IOC top directory.
+#    # Default is defined with the same global variable name.
+#    epics_ioc_boot_dir: ""
+#    # Select if we need to manage EPICS IOC user.
+#    # Default is defined with the same global variable name.
 #    epics_manage_user: true
+#    # Select if we need to manage EPICS IOC autosave directory.
+#    # Default is defined with the same global variable name.
 #    epics_manage_autosave_dir: true
+#    # Name of the IOC owner. Must exist in the target system.
+#    # Select "epics_mange_user: true" for automatic user creation
+#    # Default is defined with the same global variable name.
 #    epics_ioc_user_name: ioc
+#    # IOC user name UID.
 #    # Leave empty or omit for automatic assignment
 #    epics_ioc_uid:
-#    # Leave empty or omit to default
+#    # State of systemd unit.
+#    # Options are: started, restarted. reloaded, stopped.
+#    # Is set to started and the systemd unit is changed somehow
+#    # the unit will be RESTARTED. If you don't want this behavior
+#    # set this to reloaded.
+#    # Default is defined with the same global variable name.
 #    epics_ioc_systemd_state: started
-#    # Leave empty or omit to default
+#    # Enabled status of systemd unit.
+#    # Options are: true, false.
+#    # Default is defined with the same global variable name.
 #    epics_ioc_systemd_enabled: true
+#    # IOC systemd unit "Requires" dependency list.
 #    # Leave empty or omit to undefined
 #    epics_ioc_systemd_requires:
 #      - network.target
+#    # IOC systemd unit "Wants" dependency list.
 #    # Leave empty or omit to undefined
 #    epics_ioc_systemd_wants:
 #      - network.target
+#    # IOC systemd unit "After" dependency list.
 #    # Leave empty or omit to undefined
 #    epics_ioc_systemd_after:
 #      - network.target
+#    # IOC systemd unit "RequireMountsFor" dependency list.
 #    # Leave empty or omit to undefined
 #    epics_ioc_systemd_requires_mounts_for: []
-#    # Leave empty or omit to default
+#    # EPICS IOC systemd procServ coresize
+#    # Default is defined with the same global variable name.
 #    epics_ioc_systemd_coresize:
-#    # Leave empty or omit to default
+#    # IOC systemd procServ console port enable.
+#    # Options are: true, false.
+#    # Default is defined with the same global variable name.
 #    epics_ioc_systemd_enable_console_port: true
-#    # Leave empty or omit to default
+#    # IOC systemd procServ console port number.
+#    # Default is defined with the same global variable name.
 #    epics_ioc_systemd_console_port:
-#    # Leave empty or omit to default
+#    # IOC systemd procServ unix domain socket enable.
+#    # Options are: true, false.
+#    # Default is defined with the same global variable name.
 #    epics_ioc_systemd_enable_unix_domain_socket:
-#    # Leave empty or omit to default
+#    # IOC systemd procServ unix domain socket path. Relative to "/run"
+#    # Default is "softioc-{{ IOC name }}/procServ.sock"
 #    epics_ioc_systemd_unix_domain_socket:
-#    # Leave empty or omit to default
+#    # IOC systemd procServ time format.
+#    # Default is defined with the same global variable name.
 #    epics_ioc_systemd_procserv_timefmt:
-#    # Leave empty or omit to default
+#    # EPICS IOC startup script name. Relative to the IOC boot
+#    # directory.
+#    # Default is defined with the same global variable name.
 #    epics_ioc_systemd_procserv_start_script:
-#    # Leave empty or omit to default
+#    # EPICS systemd notify option. Requires the IOC to call
+#    # "systemd-notify --ready" when the IOC finished booting.
+#    # Default is defined with the same global variable name.
 #    epics_ioc_systemd_notify:
 #    # Environment variables shall be passed in a dictionary, if
-#    # not list below
+#    # not listed below
 #    epics_ioc_env: {}
 #    # Leave empty or omit to make variable undefined
 #    epics_ioc_env_epics_ca_addr_list: "127.0.0.1"
@@ -210,23 +266,33 @@ epics_ioc_epics_ioc_modules: []
 #    epics_ioc_env_epics_ca_auto_addr_list: true
 #    # Leave empty or omit to make variable undefined
 #    epics_ioc_env_epics_ca_max_array_bytes: 10000000
-#    # Leave empty or omit to make variable assume default value
+#    # Default is defined with the same global variable name.
 #    epics_ioc_env_epics_ioc_log_port: 7004
 #    # Leave empty or omit for undefined variable
 #    epics_ioc_env_epics_ca_sec_file: ""
 #    # Leave empty or omit for undefined variable
 #    epics_ioc_env_epics_ioc_log_inet: ""
-#    # Only used if epics_manage_autosave_dir is set to true
+#    # EPICS IOC autosave base directory.
+#    # Default is defined with the same global variable name.
 #    epics_ioc_autosave_base_dir: /var/lib
-#    # Leave empty or omit to default
+#    # EPICS IOC logrotate. Number of rotated log files to keep on disk.
+#    # Default is defined with the same global variable name.
 #    epics_ioc_logrotate_rotate:
-#    # Leave empty or omit to default
+#    # EPICS IOC logrotate. Size a log file has to reach before it will be
+#    # rotated.
+#    # Default is defined with the same global variable name.
 #    epics_ioc_logrotate_size:
-#    # Leave empty or omit to default
+#    # EPICS IOC logrotate. Whether to compress the IOC's log
+#    # files when rotating them.
+#    # Default is defined with the same global variable name.
 #    epics_ioc_logrotate_compress:
+#    # Makfile target to execute when installing the EPICS IOC. Requires
+#    # install_via_makefile to be set to true.
 #    make_install_targets:
 #      - distclean
 #      - all
+#    # Whether to remove local repository modifications or not.
+#    # Default is false
 #    force_version: true
 
 epics_ioc_repos: []
