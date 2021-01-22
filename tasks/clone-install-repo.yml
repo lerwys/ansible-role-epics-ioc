@@ -415,7 +415,7 @@
     state: directory
     owner: "{{ repo_epics_ioc_user }}"
     group: "{{ epics_ioc_group_name }}"
-    mode: 2755
+    mode: 02755
   become: true
 
 - name: "Setup logrotate for {{ item.repo_name }}"
