@@ -35,9 +35,13 @@ jobs:
 
       # remove meta/requirements.yml as ansible-lint crashes with:
       # AttributeError: 'AnsibleUnicode' object has no attribute 'items'
+      - name: Remove meta/requirements.yml to avoid bug
+        run: |
+          rm requirements.yml
+        working-directory: ./meta
+
       - name: Lint code
         run: |
-          rm meta/requirements.yml
           yamllint .
           ansible-lint
 
