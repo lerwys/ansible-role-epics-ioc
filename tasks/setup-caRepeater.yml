@@ -26,6 +26,7 @@
         path: "{{ epics_ioc_carepeater_systemd_path }}"
         enabled: "{{ epics_ioc_carepeater_systemd_enabled | bool }}"
         state: "{{ epics_ioc_carepeater_systemd_state }}"
+        backup: false
         Unit:
           Description: EPICS CA Repeater
           Requires: network.target

@@ -346,6 +346,7 @@
       - name: "softioc-{{ item.repo_name }}"
         state: "{{ item.epics_ioc_systemd_state | default(epics_ioc_systemd_state) }}"
         enabled: "{{ item.epics_ioc_systemd_enabled | default(epics_ioc_systemd_enabled) }}"
+        backup: false
         Unit:
           Description: "EPICS Soft IOC {{ item.repo_name }}"
           Wants: "{{ repo_ioc_systemd_wants }}"
