@@ -419,7 +419,7 @@ Check the task/clone-install.yml or the next section for all actions available.
         # EPICS IOC startup script name. Relative to the IOC boot
         # directory.
         # Default is defined with the same global variable name.
-        epics_ioc_systemd_procserv_start_script:
+        epics_ioc_systemd_procserv_start_script: "st.cmd"
         # EPICS systemd notify option. Requires the IOC to call
         # "systemd-notify --ready" when the IOC finished booting.
         # Default is defined with the same global variable name.
